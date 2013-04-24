@@ -389,7 +389,7 @@
 			this.MinimumSize = new System.Drawing.Size(500, 400);
 			this.Name = "frmMain";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Resource Translator";
+			this.Text = "Resource Auto Translator";
 			this.Load += new System.EventHandler(this.frmMain_Load);
 			this.tabMain.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
