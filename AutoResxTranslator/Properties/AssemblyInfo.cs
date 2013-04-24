@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
  * AutoResxTranslator
  * by Salar Khalilzadeh
  * 
- * https://AutoResxTranslator.codeplex.com/
+ * https://autoresxtranslator.codeplex.com/
  * Mozilla Public License v2
  */
 
-[assembly: AssemblyTitle("AutoResxTranslator")]
+[assembly: AssemblyTitle("Auto Resource Translator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Salar Khalilzadeh")]

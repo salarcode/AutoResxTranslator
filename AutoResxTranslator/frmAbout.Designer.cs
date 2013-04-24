@@ -87,7 +87,7 @@
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Location = new System.Drawing.Point(146, 12);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(280, 176);
+			this.groupBox1.Size = new System.Drawing.Size(285, 176);
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
 			// 
@@ -114,10 +114,10 @@
 			this.lnkUpdate.AutoEllipsis = true;
 			this.lnkUpdate.Location = new System.Drawing.Point(75, 103);
 			this.lnkUpdate.Name = "lnkUpdate";
-			this.lnkUpdate.Size = new System.Drawing.Size(217, 13);
+			this.lnkUpdate.Size = new System.Drawing.Size(204, 13);
 			this.lnkUpdate.TabIndex = 1;
 			this.lnkUpdate.TabStop = true;
-			this.lnkUpdate.Text = "https://AutoResxTranslator.codeplex.com/";
+			this.lnkUpdate.Text = "https://autoresxtranslator.codeplex.com/";
 			this.lnkUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUpdate_LinkClicked);
 			// 
 			// lnk
@@ -210,9 +210,9 @@
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.Location = new System.Drawing.Point(6, 16);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(122, 13);
+			this.label1.Size = new System.Drawing.Size(152, 13);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Resource Translator";
+			this.label1.Text = "Auto Resource Translator";
 			// 
 			// frmAbout
 			// 
