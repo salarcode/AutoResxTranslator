@@ -1,0 +1,33 @@
+﻿using System.Reflection;
+using System.Runtime.InteropServices;
+
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+/* 
+ * ResxAutoTranslator
+ * by Salar Khalilzadeh
+ * 
+ * https://resxautotranslator.codeplex.com/
+ * Mozilla Public License v2
+ */
+
+[assembly: AssemblyTitle("ResxAutoTranslator")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Salar Khalilzadeh")]
+[assembly: AssemblyProduct("ResxAutoTranslator")]
+[assembly: AssemblyCopyright("Copyright © Salar Khalilzadeh 2013")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+
+// Setting ComVisible to false makes the types in this assembly not visible 
+// to COM components.  If you need to access a type in this assembly from 
+// COM, set the ComVisible attribute to true on that type.
+[assembly: ComVisible(false)]
+
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("b7bafe70-b0e7-494a-aa38-49b8eee414f1")]
+
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
