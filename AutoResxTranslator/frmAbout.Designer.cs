@@ -114,7 +114,7 @@
 			this.lnkUpdate.AutoEllipsis = true;
 			this.lnkUpdate.Location = new System.Drawing.Point(75, 103);
 			this.lnkUpdate.Name = "lnkUpdate";
-			this.lnkUpdate.Size = new System.Drawing.Size(204, 13);
+			this.lnkUpdate.Size = new System.Drawing.Size(205, 13);
 			this.lnkUpdate.TabIndex = 1;
 			this.lnkUpdate.TabStop = true;
 			this.lnkUpdate.Text = "https://autoresxtranslator.codeplex.com/";
