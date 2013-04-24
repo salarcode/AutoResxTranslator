@@ -100,6 +100,9 @@ namespace ResxAutoTranslator
 			}
 		}
 
+		/// <summary>
+		///  the main trick :)
+		/// </summary>
 		static bool ReadGoogleTranslatedResult(Stream rawdata, out string result)
 		{
 			string text;
@@ -112,7 +115,6 @@ namespace ResxAutoTranslator
 			{
 				dynamic obj = SimpleJson.DeserializeObject(text);
 
-				// the main trick :)
 				var final = "";
 
 				// the number of lines
