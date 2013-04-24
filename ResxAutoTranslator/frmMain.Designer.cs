@@ -1,4 +1,4 @@
-﻿namespace ResxAutoTranslator
+﻿namespace AutoResxTranslator
 {
 	partial class frmMain
 	{

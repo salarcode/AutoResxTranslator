@@ -4,13 +4,13 @@ using System.Reflection;
 using System.Windows.Forms;
 
 /* 
- * ResxAutoTranslator
+ * AutoResxTranslator
  * by Salar Khalilzadeh
  * 
- * https://resxautotranslator.codeplex.com/
+ * https://AutoResxTranslator.codeplex.com/
  * Mozilla Public License v2
  */
-namespace ResxAutoTranslator
+namespace AutoResxTranslator
 {
 	public partial class frmAbout : Form
 	{

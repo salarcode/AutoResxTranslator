@@ -5,18 +5,18 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 /* 
- * ResxAutoTranslator
+ * AutoResxTranslator
  * by Salar Khalilzadeh
  * 
- * https://resxautotranslator.codeplex.com/
+ * https://AutoResxTranslator.codeplex.com/
  * Mozilla Public License v2
  */
 
-[assembly: AssemblyTitle("ResxAutoTranslator")]
+[assembly: AssemblyTitle("AutoResxTranslator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Salar Khalilzadeh")]
-[assembly: AssemblyProduct("ResxAutoTranslator")]
+[assembly: AssemblyProduct("AutoResxTranslator")]
 [assembly: AssemblyCopyright("Copyright © Salar Khalilzadeh 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

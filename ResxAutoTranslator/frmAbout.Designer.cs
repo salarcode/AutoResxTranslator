@@ -1,4 +1,4 @@
-﻿namespace ResxAutoTranslator
+﻿namespace AutoResxTranslator
 {
 	partial class frmAbout
 	{
@@ -117,7 +117,7 @@
 			this.lnkUpdate.Size = new System.Drawing.Size(217, 13);
 			this.lnkUpdate.TabIndex = 1;
 			this.lnkUpdate.TabStop = true;
-			this.lnkUpdate.Text = "https://resxautotranslator.codeplex.com/";
+			this.lnkUpdate.Text = "https://AutoResxTranslator.codeplex.com/";
 			this.lnkUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUpdate_LinkClicked);
 			// 
 			// lnk

@@ -2,13 +2,13 @@
 using System.Xml;
 
 /* 
- * ResxAutoTranslator
+ * AutoResxTranslator
  * by Salar Khalilzadeh
  * 
- * https://resxautotranslator.codeplex.com/
+ * https://AutoResxTranslator.codeplex.com/
  * Mozilla Public License v2
  */
-namespace ResxAutoTranslator
+namespace AutoResxTranslator
 {
 	public static class ResxTranslator
 	{

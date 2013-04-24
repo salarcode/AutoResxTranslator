@@ -61,12 +61,12 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
-using ResxAutoTranslator.Reflection;
+using AutoResxTranslator.Reflection;
 
 // ReSharper disable LoopCanBeConvertedToQuery
 // ReSharper disable RedundantExplicitArrayCreation
 // ReSharper disable SuggestUseVarKeywordEvident
-namespace ResxAutoTranslator
+namespace AutoResxTranslator
 {
     /// <summary>
     /// Represents the json array.
@@ -479,7 +479,7 @@ namespace ResxAutoTranslator
     }
 }
 
-namespace ResxAutoTranslator
+namespace AutoResxTranslator
 {
     /// <summary>
     /// This class encodes and decodes JSON strings.
