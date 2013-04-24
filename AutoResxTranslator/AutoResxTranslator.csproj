@@ -7,8 +7,8 @@
     <ProjectGuid>{F94C22F1-1B4C-4F00-A42E-EE4205C50D8E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ResxAutoTranslator</RootNamespace>
-    <AssemblyName>ResxAutoTranslator</AssemblyName>
+    <RootNamespace>AutoResxTranslator</RootNamespace>
+    <AssemblyName>AutoResxTranslator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
