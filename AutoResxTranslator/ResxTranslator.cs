@@ -27,6 +27,20 @@ namespace AutoResxTranslator
 			// node.Attributes["name"].Value
 			return dataList;
 		}
+		public static void AddLanguageNode(XmlDocument doc, string key, string value)
+		{
+			var root = doc.SelectSingleNode("root");
+
+			var node = doc.CreateElement("data");
+			var nameAtt = doc.CreateAttribute("name");
+			nameAtt.Value = key;
+			node.Attributes.Append(nameAtt);
+			var valNode = doc.CreateElement("value");
+			valNode.InnerText = value;
+			node.AppendChild(valNode);
+
+			root.AppendChild(node);
+		}
 
 		public static XmlNode GetDataValueNode(XmlNode dataNode)
 		{

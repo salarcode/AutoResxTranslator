@@ -343,7 +343,6 @@ namespace AutoResxTranslator
 			else
 			{
 				status = "Translation finished.";
-
 			}
 
 
@@ -368,13 +367,53 @@ namespace AutoResxTranslator
 		}
 
 
+		void ImportExcel()
+		{
+			var sheetName = cmbExcelSheets.Text;
+			var excelFile = txtExcelFile.Text;
+			var resxFile = txtExcelResx.Text;
+			var sheetKeyColumn = cmbExcelKey.Text;
+			var sheetTranslation = cmbExcelTranslation.Text;
+			var create = chkExcelCreateAbsent.Checked;
+
+			IsBusy(true);
+			new Action<string, string, string, string, string, bool>(ImportExcel).BeginInvoke(
+				excelFile,
+				resxFile,
+				sheetName,
+				sheetKeyColumn,
+				sheetTranslation,
+				create,
+				(x) => IsBusy(false),
+				null);
+		}
+
+		private void ImportExcel(string excelFile, string resxFile, string sheetName, string sheetKeyColumn, string sheetTranslation, bool create)
+		{
+			var doc = new XmlDocument();
+			doc.Load(resxFile);
+			var dataList = ResxTranslator.ReadResxData(doc);
+
+			var excelLanguages = ResxExcel.ReadExcelLanguage(excelFile, sheetName, sheetKeyColumn, sheetTranslation);
+			foreach (var lngPair in excelLanguages)
+			{
+				var node = dataList.FirstOrDefault(x => ResxTranslator.GetDataKeyName(x) == lngPair.Key);
+				if (node != null)
+				{
+					node.InnerText = lngPair.Value;
+				}
+				else
+				{
+					ResxTranslator.AddLanguageNode(doc, lngPair.Key, lngPair.Value);
+				}
+			}
+			doc.Save(resxFile);
+		}
+
 		private void frmMain_Load(object sender, EventArgs e)
 		{
 			FillComboBoxes();
 		}
-
-
-
 
 		private void btnTranslate_Click(object sender, EventArgs e)
 		{
@@ -459,6 +498,100 @@ namespace AutoResxTranslator
 				frm.ShowDialog();
 			}
 		}
+
+		private void btnOpenExcel_Click(object sender, EventArgs e)
+		{
+			if (!File.Exists(txtExcelFile.Text))
+			{
+				MessageBox.Show("Please select excel file.", "Excel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			var excel = ResxExcel.ReadExcel(txtExcelFile.Text);
+			if (excel == null)
+			{
+				MessageBox.Show("Failed to read excel file", "Excel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			cmbExcelSheets.DataSource = excel.SheetNames;
+			cmbExcelKey.DataSource = excel.SheetColumns;
+			cmbExcelTranslation.DataSource = excel.SheetColumns;
+			if (Array.IndexOf(excel.SheetColumns, "Name") != -1)
+			{
+				cmbExcelKey.SelectedValue = "Name";
+			}
+			btnImportExcel.Enabled = true;
+		}
+
+		private void btnSelectExcel_Click(object sender, EventArgs e)
+		{
+			var dlg = new OpenFileDialog();
+			dlg.Filter = "Excel File|*.xls;xlsx";
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				txtExcelFile.Text = dlg.FileName;
+			}
+		}
+
+		private void btnExcelResx_Click(object sender, EventArgs e)
+		{
+			var dlg = new OpenFileDialog();
+			dlg.Filter = "ResourceX File|*.resx";
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				txtExcelResx.Text = dlg.FileName;
+			}
+		}
+
+		private void cmbExcelSheets_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (string.IsNullOrWhiteSpace(txtExcelFile.Text))
+				return;
+			if (!File.Exists(txtExcelFile.Text))
+			{
+				MessageBox.Show("Please select excel file.", "Select Resx", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			if (cmbExcelSheets.SelectedIndex != -1)
+			{
+				var cols = ResxExcel.GetExcelSheetColumns(txtExcelFile.Text, cmbExcelSheets.Text);
+				cmbExcelKey.DataSource = cols;
+				var cols2 = ResxExcel.GetExcelSheetColumns(txtExcelFile.Text, cmbExcelSheets.Text);
+				cmbExcelTranslation.DataSource = cols2;
+				if (Array.IndexOf(cols, "Name") != -1)
+				{
+					cmbExcelKey.Text = "Name";
+				}
+			}
+		}
+
+		private void btnImportExcel_Click(object sender, EventArgs e)
+		{
+			if (!File.Exists(txtExcelResx.Text))
+			{
+				MessageBox.Show("Please select ResX file.", "Select Resx", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			if (!File.Exists(txtExcelFile.Text))
+			{
+				MessageBox.Show("Please select excel file.", "Select Resx", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			if (cmbExcelSheets.Items.Count == 0)
+			{
+				MessageBox.Show("Please open excel file and select key and translation columns.", "Open Excel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			if (cmbExcelKey.SelectedIndex == -1 || cmbExcelSheets.SelectedIndex == -1 || cmbExcelTranslation.SelectedIndex == -1)
+			{
+				MessageBox.Show("Please select excel columns.", "Select Columns", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			ImportExcel();
+		}
+
 
 	}
 }
