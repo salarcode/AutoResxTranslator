@@ -29,12 +29,20 @@ namespace AutoResxTranslator
 		}
 		public static void AddLanguageNode(XmlDocument doc, string key, string value)
 		{
+			// xml:space="preserve" is essential for some software to read
+
 			var root = doc.SelectSingleNode("root");
 
 			var node = doc.CreateElement("data");
+			
 			var nameAtt = doc.CreateAttribute("name");
 			nameAtt.Value = key;
 			node.Attributes.Append(nameAtt);
+
+			var xmlspaceAtt = doc.CreateAttribute("xml:space");
+			xmlspaceAtt.Value = "preserve";
+			node.Attributes.Append(xmlspaceAtt);
+
 			var valNode = doc.CreateElement("value");
 			valNode.InnerText = value;
 			node.AppendChild(valNode);
@@ -53,6 +61,21 @@ namespace AutoResxTranslator
 					return node;
 			}
 			return null;
+		}
+
+		public static void SetDataValue(XmlDocument doc,XmlNode dataNode, string value)
+		{
+			var valueNode = GetDataValueNode(dataNode);
+			if (valueNode == null)
+			{
+				var valNode = doc.CreateElement("value");
+				valNode.InnerText = value;
+				dataNode.AppendChild(valNode);
+			}
+			else
+			{
+				valueNode.InnerText = value;
+			}
 		}
 
 		public static string GetDataKeyName(XmlNode dataNode)

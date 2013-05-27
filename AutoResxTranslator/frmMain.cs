@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
@@ -400,14 +401,18 @@ namespace AutoResxTranslator
 				var node = dataList.FirstOrDefault(x => ResxTranslator.GetDataKeyName(x) == lngPair.Key);
 				if (node != null)
 				{
-					node.InnerText = lngPair.Value;
+					ResxTranslator.SetDataValue(doc, node, lngPair.Value);
 				}
 				else
 				{
 					ResxTranslator.AddLanguageNode(doc, lngPair.Key, lngPair.Value);
 				}
 			}
-			doc.Save(resxFile);
+			doc.PreserveWhitespace = false;
+			var writer = new XmlTextWriter(resxFile, Encoding.UTF8);
+			writer.Formatting = Formatting.Indented;
+			doc.Save(writer);
+			writer.Close();
 		}
 
 		private void frmMain_Load(object sender, EventArgs e)
@@ -503,7 +508,7 @@ namespace AutoResxTranslator
 		{
 			if (!File.Exists(txtExcelFile.Text))
 			{
-				MessageBox.Show("Please select excel file.", "Excel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Please select an excel file.", "Excel", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 
@@ -549,7 +554,7 @@ namespace AutoResxTranslator
 				return;
 			if (!File.Exists(txtExcelFile.Text))
 			{
-				MessageBox.Show("Please select excel file.", "Select Resx", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Please select an excel file.", "Select Resx", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 
@@ -575,7 +580,7 @@ namespace AutoResxTranslator
 			}
 			if (!File.Exists(txtExcelFile.Text))
 			{
-				MessageBox.Show("Please select excel file.", "Select Resx", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Please select an excel file.", "Select Resx", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			if (cmbExcelSheets.Items.Count == 0)
