@@ -3,13 +3,12 @@ A tool to automatically translate Resx files to any language using Google Transl
 
 Text translation
 ------
-[[https://github.com/salarcode/AutoResxTranslator/blob/master/Wiki/Images/text-translation.png|alt=Text-Translation]]
+![Text-Translation](/Wiki/Images/resx-translating.png?raw=true)
 
 Resx Translation
 ------
-[[https://github.com/salarcode/AutoResxTranslator/blob/master/Wiki/Images/resx-translation.png|alt=ResX-Translation]]
+![ResX-Translation](/Wiki/Images/resx-translation.png?raw=true)
 
 Resx translation is in progress
 ------
-[[https://github.com/salarcode/AutoResxTranslator/blob/master/Wiki/Images/resx-translating.png|alt=ResX-Translating]]
-
+![ResX-Translation](/Wiki/Images/resx-translating.png?raw=true)
