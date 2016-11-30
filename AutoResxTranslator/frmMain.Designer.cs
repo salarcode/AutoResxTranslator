@@ -28,8 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("hellooooo");
-			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Hiiiiiiiiiiiii");
+			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Language1");
+			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Language2");
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
 			this.tabMain = new System.Windows.Forms.TabControl();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -60,7 +60,10 @@
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.chkExcelCreateAbsent = new System.Windows.Forms.CheckBox();
+			this.btnSelectExcel = new System.Windows.Forms.Button();
 			this.btnOpenExcel = new System.Windows.Forms.Button();
+			this.txtExcelFile = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
 			this.btnImportExcel = new System.Windows.Forms.Button();
 			this.cmbExcelTranslation = new System.Windows.Forms.ComboBox();
 			this.label10 = new System.Windows.Forms.Label();
@@ -68,13 +71,12 @@
 			this.label11 = new System.Windows.Forms.Label();
 			this.cmbExcelKey = new System.Windows.Forms.ComboBox();
 			this.label9 = new System.Windows.Forms.Label();
-			this.btnSelectExcel = new System.Windows.Forms.Button();
-			this.txtExcelFile = new System.Windows.Forms.TextBox();
-			this.label8 = new System.Windows.Forms.Label();
 			this.btnExcelResx = new System.Windows.Forms.Button();
 			this.txtExcelResx = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.lnkAbout = new System.Windows.Forms.LinkLabel();
+			this.tabBrowser = new System.Windows.Forms.TabPage();
+			this.webBrowser = new System.Windows.Forms.WebBrowser();
 			this.tabMain.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -86,6 +88,7 @@
 			this.tabResx.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.tabBrowser.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabMain
@@ -96,6 +99,7 @@
 			this.tabMain.Controls.Add(this.tabPage2);
 			this.tabMain.Controls.Add(this.tabResx);
 			this.tabMain.Controls.Add(this.tabPage1);
+			this.tabMain.Controls.Add(this.tabBrowser);
 			this.tabMain.Location = new System.Drawing.Point(12, 12);
 			this.tabMain.Name = "tabMain";
 			this.tabMain.SelectedIndex = 0;
@@ -432,6 +436,17 @@
 			this.chkExcelCreateAbsent.Text = "Create absent language keys";
 			this.chkExcelCreateAbsent.UseVisualStyleBackColor = true;
 			// 
+			// btnSelectExcel
+			// 
+			this.btnSelectExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSelectExcel.Location = new System.Drawing.Point(537, 18);
+			this.btnSelectExcel.Name = "btnSelectExcel";
+			this.btnSelectExcel.Size = new System.Drawing.Size(75, 23);
+			this.btnSelectExcel.TabIndex = 3;
+			this.btnSelectExcel.Text = "Select";
+			this.btnSelectExcel.UseVisualStyleBackColor = true;
+			this.btnSelectExcel.Click += new System.EventHandler(this.btnSelectExcel_Click);
+			// 
 			// btnOpenExcel
 			// 
 			this.btnOpenExcel.Location = new System.Drawing.Point(263, 46);
@@ -441,6 +456,24 @@
 			this.btnOpenExcel.Text = "Open Excel";
 			this.btnOpenExcel.UseVisualStyleBackColor = true;
 			this.btnOpenExcel.Click += new System.EventHandler(this.btnOpenExcel_Click);
+			// 
+			// txtExcelFile
+			// 
+			this.txtExcelFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtExcelFile.Location = new System.Drawing.Point(107, 20);
+			this.txtExcelFile.Name = "txtExcelFile";
+			this.txtExcelFile.Size = new System.Drawing.Size(424, 21);
+			this.txtExcelFile.TabIndex = 2;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(46, 23);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(55, 13);
+			this.label8.TabIndex = 8;
+			this.label8.Text = "Excel File:";
 			// 
 			// btnImportExcel
 			// 
@@ -508,35 +541,6 @@
 			this.label9.TabIndex = 8;
 			this.label9.Text = "Key Column:";
 			// 
-			// btnSelectExcel
-			// 
-			this.btnSelectExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSelectExcel.Location = new System.Drawing.Point(537, 18);
-			this.btnSelectExcel.Name = "btnSelectExcel";
-			this.btnSelectExcel.Size = new System.Drawing.Size(75, 23);
-			this.btnSelectExcel.TabIndex = 3;
-			this.btnSelectExcel.Text = "Select";
-			this.btnSelectExcel.UseVisualStyleBackColor = true;
-			this.btnSelectExcel.Click += new System.EventHandler(this.btnSelectExcel_Click);
-			// 
-			// txtExcelFile
-			// 
-			this.txtExcelFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtExcelFile.Location = new System.Drawing.Point(107, 20);
-			this.txtExcelFile.Name = "txtExcelFile";
-			this.txtExcelFile.Size = new System.Drawing.Size(424, 21);
-			this.txtExcelFile.TabIndex = 2;
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(46, 23);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(55, 13);
-			this.label8.TabIndex = 8;
-			this.label8.Text = "Excel File:";
-			// 
 			// btnExcelResx
 			// 
 			this.btnExcelResx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -579,6 +583,30 @@
 			this.lnkAbout.Text = "About";
 			this.lnkAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAbout_LinkClicked);
 			// 
+			// tabBrowser
+			// 
+			this.tabBrowser.Controls.Add(this.webBrowser);
+			this.tabBrowser.Location = new System.Drawing.Point(4, 22);
+			this.tabBrowser.Name = "tabBrowser";
+			this.tabBrowser.Padding = new System.Windows.Forms.Padding(3);
+			this.tabBrowser.Size = new System.Drawing.Size(642, 346);
+			this.tabBrowser.TabIndex = 4;
+			this.tabBrowser.Text = "Google Translator";
+			this.tabBrowser.UseVisualStyleBackColor = true;
+			// 
+			// webBrowser
+			// 
+			this.webBrowser.AllowWebBrowserDrop = false;
+			this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.webBrowser.IsWebBrowserContextMenuEnabled = false;
+			this.webBrowser.Location = new System.Drawing.Point(3, 3);
+			this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+			this.webBrowser.Name = "webBrowser";
+			this.webBrowser.Size = new System.Drawing.Size(636, 340);
+			this.webBrowser.TabIndex = 0;
+			this.webBrowser.Url = new System.Uri("https://translate.google.com/", System.UriKind.Absolute);
+			this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
+			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -611,6 +639,7 @@
 			this.tabPage1.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.tabBrowser.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -662,6 +691,8 @@
 		private System.Windows.Forms.ComboBox cmbExcelSheets;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.CheckBox chkExcelCreateAbsent;
+		private System.Windows.Forms.TabPage tabBrowser;
+		private System.Windows.Forms.WebBrowser webBrowser;
 	}
 }
 

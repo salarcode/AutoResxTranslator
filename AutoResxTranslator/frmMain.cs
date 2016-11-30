@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -15,6 +16,7 @@ using System.Xml;
  * https://autoresxtranslator.codeplex.com/
  * Mozilla Public License v2
  */
+
 namespace AutoResxTranslator
 {
 	public partial class frmMain : Form
@@ -26,76 +28,76 @@ namespace AutoResxTranslator
 
 		private readonly Dictionary<string, string> _languages =
 			new Dictionary<string, string>
-				{
-					{"auto", "(Detect)"},
-					{"af", "Afrikaans"},
-					{"sq", "Albanian"},
-					{"ar", "Arabic"},
-					{"hy", "Armenian"},
-					{"az", "Azerbaijani"},
-					{"eu", "Basque"},
-					{"be", "Belarusian"},
-					{"bn", "Bengali"},
-					{"bg", "Bulgarian"},
-					{"ca", "Catalan"},
-					{"zh-CN", "Chinese (Simplified)"},
-					{"zh-TW", "Chinese (Traditional)"},
-					{"hr", "Croatian"},
-					{"cs", "Czech"},
-					{"da", "Danish"},
-					{"nl", "Dutch"},
-					{"en", "English"},
-					{"eo", "Esperanto"},
-					{"et", "Estonian"},
-					{"tl", "Filipino"},
-					{"fi", "Finnish"},
-					{"fr", "French"},
-					{"gl", "Galician"},
-					{"ka", "Georgian"},
-					{"de", "German"},
-					{"el", "Greek"},
-					{"gu", "Gujarati"},
-					{"ht", "Haitian Creole"},
-					{"iw", "Hebrew"},
-					{"hi", "Hindi"},
-					{"hu", "Hungarian"},
-					{"is", "Icelandic"},
-					{"id", "Indonesian"},
-					{"ga", "Irish"},
-					{"it", "Italian"},
-					{"ja", "Japanese"},
-					{"kn", "Kannada"},
-					{"km", "Khmer"},
-					{"ko", "Korean"},
-					{"lo", "Lao"},
-					{"la", "Latin"},
-					{"lv", "Latvian"},
-					{"lt", "Lithuanian"},
-					{"mk", "Macedonian"},
-					{"ms", "Malay"},
-					{"mt", "Maltese"},
-					{"no", "Norwegian"},
-					{"fa", "Persian"},
-					{"pl", "Polish"},
-					{"pt", "Portuguese"},
-					{"ro", "Romanian"},
-					{"ru", "Russian"},
-					{"sr", "Serbian"},
-					{"sk", "Slovak"},
-					{"sl", "Slovenian"},
-					{"es", "Spanish"},
-					{"sw", "Swahili"},
-					{"sv", "Swedish"},
-					{"ta", "Tamil"},
-					{"te", "Telugu"},
-					{"th", "Thai"},
-					{"tr", "Turkish"},
-					{"uk", "Ukrainian"},
-					{"ur", "Urdu"},
-					{"vi", "Vietnamese"},
-					{"cy", "Welsh"},
-					{"yi", "Yiddish"}
-				};
+			{
+				{"auto", "(Detect)"},
+				{"af", "Afrikaans"},
+				{"sq", "Albanian"},
+				{"ar", "Arabic"},
+				{"hy", "Armenian"},
+				{"az", "Azerbaijani"},
+				{"eu", "Basque"},
+				{"be", "Belarusian"},
+				{"bn", "Bengali"},
+				{"bg", "Bulgarian"},
+				{"ca", "Catalan"},
+				{"zh-CN", "Chinese (Simplified)"},
+				{"zh-TW", "Chinese (Traditional)"},
+				{"hr", "Croatian"},
+				{"cs", "Czech"},
+				{"da", "Danish"},
+				{"nl", "Dutch"},
+				{"en", "English"},
+				{"eo", "Esperanto"},
+				{"et", "Estonian"},
+				{"tl", "Filipino"},
+				{"fi", "Finnish"},
+				{"fr", "French"},
+				{"gl", "Galician"},
+				{"ka", "Georgian"},
+				{"de", "German"},
+				{"el", "Greek"},
+				{"gu", "Gujarati"},
+				{"ht", "Haitian Creole"},
+				{"iw", "Hebrew"},
+				{"hi", "Hindi"},
+				{"hu", "Hungarian"},
+				{"is", "Icelandic"},
+				{"id", "Indonesian"},
+				{"ga", "Irish"},
+				{"it", "Italian"},
+				{"ja", "Japanese"},
+				{"kn", "Kannada"},
+				{"km", "Khmer"},
+				{"ko", "Korean"},
+				{"lo", "Lao"},
+				{"la", "Latin"},
+				{"lv", "Latvian"},
+				{"lt", "Lithuanian"},
+				{"mk", "Macedonian"},
+				{"ms", "Malay"},
+				{"mt", "Maltese"},
+				{"no", "Norwegian"},
+				{"fa", "Persian"},
+				{"pl", "Polish"},
+				{"pt", "Portuguese"},
+				{"ro", "Romanian"},
+				{"ru", "Russian"},
+				{"sr", "Serbian"},
+				{"sk", "Slovak"},
+				{"sl", "Slovenian"},
+				{"es", "Spanish"},
+				{"sw", "Swahili"},
+				{"sv", "Swedish"},
+				{"ta", "Tamil"},
+				{"te", "Telugu"},
+				{"th", "Thai"},
+				{"tr", "Turkish"},
+				{"uk", "Ukrainian"},
+				{"ur", "Urdu"},
+				{"vi", "Vietnamese"},
+				{"cy", "Welsh"},
+				{"yi", "Yiddish"}
+			};
 
 
 		void FillComboBoxes()
@@ -232,7 +234,8 @@ namespace AutoResxTranslator
 			}
 			if (destLanguages.Count == 0)
 			{
-				MessageBox.Show("The source and the destination languages can not be the same.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("The source and the destination languages can not be the same.", "", MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
 				return;
 			}
 
@@ -245,11 +248,12 @@ namespace AutoResxTranslator
 				ResxWorkingProgress,
 				(x) => IsBusy(false),
 				null);
-
 		}
 
 		private delegate void ResxProgressCallback(int max, int pos, string status);
-		void TranslateResxFilesAsync(string sourceResx, string sourceLng, List<string> desLanguages, string destDir, ResxProgressCallback progress)
+
+		void TranslateResxFilesAsync(string sourceResx, string sourceLng, List<string> desLanguages, string destDir,
+			ResxProgressCallback progress)
 		{
 			int max = 0;
 			int pos = 0;
@@ -287,7 +291,16 @@ namespace AutoResxTranslator
 						if (valueNode == null) continue;
 
 						var orgText = valueNode.InnerText;
-						if (string.IsNullOrWhiteSpace(orgText)) continue;
+						if (string.IsNullOrWhiteSpace(orgText))
+							continue;
+
+						// Read the Key
+						var translatorUrlKey = GetGoogleTranslatorKey_UiThread(orgText);
+						if (!translatorUrlKey.Success)
+							continue;
+
+						// the key
+						var textTranslatorUrlKey = translatorUrlKey.Result;
 
 						string translated = string.Empty;
 						bool success = false;
@@ -296,7 +309,7 @@ namespace AutoResxTranslator
 						{
 							try
 							{
-								success = GTranslateService.Translate(orgText, sourceLng, destLng, out translated);
+								success = GTranslateService.Translate(orgText, sourceLng, destLng, textTranslatorUrlKey, out translated);
 							}
 							catch (Exception)
 							{
@@ -326,7 +339,9 @@ namespace AutoResxTranslator
 								string message = "\r\nKey '" + key + "' translation to language '" + destLng + "' failed.";
 								File.AppendAllText(errorLogFile, message);
 							}
-							catch { }
+							catch
+							{
+							}
 						}
 					}
 				}
@@ -389,7 +404,8 @@ namespace AutoResxTranslator
 				null);
 		}
 
-		private void ImportExcel(string excelFile, string resxFile, string sheetName, string sheetKeyColumn, string sheetTranslation, bool create)
+		private void ImportExcel(string excelFile, string resxFile, string sheetName, string sheetKeyColumn,
+			string sheetTranslation, bool create)
 		{
 			var doc = new XmlDocument();
 			doc.Load(resxFile);
@@ -415,13 +431,107 @@ namespace AutoResxTranslator
 			writer.Close();
 		}
 
+		internal delegate OpResult GetGoogleTranslatorKeyDeligate(string textToTranslate);
+
+		internal OpResult GetGoogleTranslatorKey(string textToTranslate)
+		{
+			if (IsGoogleTranslatorLoaded())
+			{
+				try
+				{
+					// ReSharper disable once PossibleNullReferenceException
+					object result = webBrowser.Document.InvokeScript("Vj", new object[] { textToTranslate });
+					if (result == null)
+					{
+						return new OpResult
+						{
+							Success = false,
+							Result = "Failed to find the translation function! Cantact the author please.\n"
+						};
+					}
+					return new OpResult
+					{
+						Success = true,
+						Result = result.ToString()
+					};
+				}
+				catch (Exception ex)
+				{
+					return new OpResult
+					{
+						Success = false,
+						Result = ex.Message
+					};
+				}
+			}
+			else
+			{
+				return new OpResult
+				{
+					Success = false,
+					Result = "Google Translator is not loaded yet!"
+				};
+			}
+		}
+
+		internal OpResult GetGoogleTranslatorKey_UiThread(string textToTranslate)
+		{
+			if (this.InvokeRequired)
+			{
+				var asyncHandler = this.BeginInvoke(new GetGoogleTranslatorKeyDeligate(GetGoogleTranslatorKey),
+					new object[] {textToTranslate});
+
+				asyncHandler.AsyncWaitHandle.WaitOne();
+
+				var result = this.EndInvoke(asyncHandler) as OpResult;
+				if (result != null)
+				{
+					return result;
+				}
+				return new OpResult()
+				{
+					Success = false,
+					Result = "Failed to get the key for the translator from main ui thread."
+				};
+			}
+			else
+			{
+				return GetGoogleTranslatorKey(textToTranslate);
+			}
+		}
+
+
+		bool IsGoogleTranslatorLoaded()
+		{
+			if (webBrowser.Document != null &&
+				(webBrowser.ReadyState == WebBrowserReadyState.Loaded ||
+				 webBrowser.ReadyState == WebBrowserReadyState.Complete))
+			{
+				return true;
+			}
+			return false;
+		}
+
 		private void frmMain_Load(object sender, EventArgs e)
 		{
 			FillComboBoxes();
+			tabMain.TabPages.Remove(tabBrowser);
 		}
 
 		private void btnTranslate_Click(object sender, EventArgs e)
 		{
+			var a = new Action(() =>
+			{
+				var result = GetGoogleTranslatorKey_UiThread(txtSrc.Text);
+				if (result.Success)
+				{
+
+				}
+
+			});
+			a.BeginInvoke((v) => { }, null);
+			return;
+
 			if (cmbDesc.SelectedIndex == -1 || cmbSrc.SelectedIndex == -1)
 			{
 				MessageBox.Show("Please select source and destination languages correctly.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -437,9 +547,17 @@ namespace AutoResxTranslator
 			var lngDest = ((KeyValuePair<string, string>)cmbDesc.SelectedItem).Key;
 			var text = txtSrc.Text;
 
+			var textTranslatorResult = GetGoogleTranslatorKey(text);
+			if (!textTranslatorResult.Success)
+			{
+				txtDesc.Text = textTranslatorResult.Result;
+				return;
+			}
+			var textTranslatorUrlKey = textTranslatorResult.Result;
+
 			IsBusy(true);
 			GTranslateService.TranslateAsync(
-				text, lngSrc, lngDest,
+				text, lngSrc, lngDest, textTranslatorUrlKey,
 				(success, result) =>
 				{
 					SetResult(result);
@@ -493,6 +611,12 @@ namespace AutoResxTranslator
 		{
 			if (!ValidateResxTranslate())
 				return;
+			if (!IsGoogleTranslatorLoaded())
+			{
+				MessageBox.Show("Google Translator is not loaded.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
 			TranslateResxFiles();
 		}
 
@@ -597,6 +721,14 @@ namespace AutoResxTranslator
 			ImportExcel();
 		}
 
-
+		private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+		{
+			HtmlDocument doc = webBrowser.Document;
+			if (doc != null)
+				foreach (HtmlElement imgElemt in doc.Images)
+				{
+					imgElemt.SetAttribute("src", "");
+				}
+		}
 	}
 }

@@ -16,16 +16,32 @@ namespace AutoResxTranslator
 {
 	public class GTranslateService
 	{
+		private const string RequestUserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0";
+		private const string RequestGoogleTranslatorUrl = "https://translate.google.com/translate_a/single?client=t&sl={0}&tl={1}&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&source=btn&ssel=5&tsel=5&kc=0&q={2}";
+
+
 		public delegate void TranslateCallBack(bool succeed, string result);
-		public static void TranslateAsync(string text, string sourceLng, string destLng, TranslateCallBack callBack)
+		public static void TranslateAsync(
+			string text,
+			string sourceLng,
+			string destLng,
+			string textTranslatorUrlKey,
+			TranslateCallBack callBack)
 		{
-			var request = CreateWebRequest(text, sourceLng, destLng);
-			request.BeginGetResponse(TranslateRequestCallBack, new KeyValuePair<WebRequest, TranslateCallBack>(request, callBack));
+			var request = CreateWebRequest(text, sourceLng, destLng, textTranslatorUrlKey);
+			request.BeginGetResponse(
+				TranslateRequestCallBack,
+				new KeyValuePair<WebRequest, TranslateCallBack>(request, callBack));
 		}
 
-		public static bool Translate(string text, string sourceLng, string destLng, out string result)
+		public static bool Translate(
+			string text,
+			string sourceLng,
+			string destLng,
+			string textTranslatorUrlKey,
+			out string result)
 		{
-			var request = CreateWebRequest(text, sourceLng, destLng);
+			var request = CreateWebRequest(text, sourceLng, destLng, textTranslatorUrlKey);
 			try
 			{
 				var response = (HttpWebResponse)request.GetResponse();
@@ -51,15 +67,21 @@ namespace AutoResxTranslator
 			}
 		}
 
-		static WebRequest CreateWebRequest(string text, string lngSourceCode, string lngDestinationCode)
+		static WebRequest CreateWebRequest(
+			string text,
+			string lngSourceCode,
+			string lngDestinationCode,
+			string textTranslatorUrlKey)
 		{
-			var url = @"https://translate.google.com/translate_a/t?client=t&ie=UTF-8&oe=UTF-8&tsel=0&uptl={1}&alttl={0}&sc=1&text={2}";
-
 			text = HttpUtility.UrlEncode(text);
 
-			url = string.Format(url, lngSourceCode, lngDestinationCode, text);
+			var url = string.Format(RequestGoogleTranslatorUrl, lngSourceCode, lngDestinationCode, text);
+
+			// the key
+			url += textTranslatorUrlKey;
+
 			var create = (HttpWebRequest)WebRequest.Create(url);
-			create.UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0";
+			create.UserAgent = RequestUserAgent;
 			create.Timeout = 50 * 1000;
 			return create;
 		}
@@ -135,4 +157,55 @@ namespace AutoResxTranslator
 		}
 
 	}
+
+	//	public class MYCLASSNAME 
+	//	{
+	//		string Sj(string a)
+	//		{
+	//			return a;
+	//		}
+	//		void Tj(string a,string b) {
+	//			for (FIXME_VAR_TYPE c = 0; c < b.length - 2; c += 3)
+	//			{
+	//				FIXME_VAR_TYPE d = b.charAt(c + 2), d = "a" <= d ? d.charCodeAt(0) - 87 : Number(d), d = "+" == b.charAt(c + 1) ? a >>> d : a << d; a = "+" == b.charAt(c) ? a + d & 4294967295 : a ^ d
+	//			}
+	//			return a;
+	//		}
+
+	//		void Vj( string a)
+	//		{
+	//			FIXME_VAR_TYPE b;
+	//			if (null !== Uj) b = Uj;
+	//			else
+	//			{
+	//				b = Sj(String.fromCharCode(84));
+	//				FIXME_VAR_TYPE c = Sj(String.fromCharCode(75));
+	//				b = [b(), b()];
+	//				b[1] = c();
+	//				b = (Uj = window[b.join(c())] || "") || ""
+
+	//	}
+	//			FIXME_VAR_TYPE d = Sj(String.fromCharCode(116)),
+	//				c = Sj(String.fromCharCode(107)),
+	//				d = [d(), d()];
+	//			d[1] = c();
+	//			c = "&" + d.join("") +
+	//				"=";
+	//			d = b.split(".");
+	//			b = Number(d[0]) || 0;
+	//			for (FIXME_VAR_TYPE e = [], f = 0, g = 0; g < a.Length; g++)
+	//			{
+	//				FIXME_VAR_TYPE l = a.charCodeAt(g);
+	//				128 > l ? e[f++] = l : (2048 > l ? e[f++] = l >> 6 | 192 : (55296 == (l & 64512) && g + 1 < a.length && 56320 == (a.charCodeAt(g + 1) & 64512) ? (l = 65536 + ((l & 1023) << 10) + (a.charCodeAt(++g) & 1023), e[f++] = l >> 18 | 240, e[f++] = l >> 12 & 63 | 128) : e[f++] = l >> 12 | 224, e[f++] = l >> 6 & 63 | 128), e[f++] = l & 63 | 128)
+	//    }
+	//		a = b;
+	//    for (f = 0; f<e.length; f++) a += e[f], a = Tj(a, "+-a^+6");
+	//		a = Tj(a, "+-3^+b+-f");
+	//		a ^= Number(d[1]) || 0;
+	//    0 > a && (a = (a & 2147483647) + 2147483648);
+	//    a %= 1E6;
+	//    return c + (a.toString() + "." +
+	//        (a ^ b))
+	//}
+	//}
 }
