@@ -3,7 +3,7 @@ A tool to automatically translate Resx files to any language using Google Transl
 
 Text translation
 ------
-![Text-Translation](/Wiki/Images/resx-translating.png?raw=true)
+![Text-Translation](/Wiki/Images/text-translation.png?raw=true)
 
 Resx Translation
 ------
