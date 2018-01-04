@@ -17,7 +17,7 @@ namespace AutoResxTranslator
 	public class GTranslateService
 	{
 		private const string RequestUserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0";
-		private const string RequestGoogleTranslatorUrl = "https://translate.google.com/translate_a/single?client=t&sl={0}&tl={1}&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&source=btn&ssel=5&tsel=5&kc=0&q={2}";
+		private const string RequestGoogleTranslatorUrl = "https://translate.googleapis.com/translate_a/single?client=gtx&sl={0}&tl={1}&hl=en&dt=t&dt=bd&dj=1&source=icon&tk=467103.467103&q={2}";
 
 
 		public delegate void TranslateCallBack(bool succeed, string result);
@@ -76,9 +76,7 @@ namespace AutoResxTranslator
 			text = HttpUtility.UrlEncode(text);
 
 			var url = string.Format(RequestGoogleTranslatorUrl, lngSourceCode, lngDestinationCode, text);
-
-			// the key
-			url += textTranslatorUrlKey;
+            
 
 			var create = (HttpWebRequest)WebRequest.Create(url);
 			create.UserAgent = RequestUserAgent;
