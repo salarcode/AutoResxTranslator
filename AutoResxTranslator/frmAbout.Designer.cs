@@ -117,7 +117,7 @@
 			this.lnkUpdate.Size = new System.Drawing.Size(205, 13);
 			this.lnkUpdate.TabIndex = 1;
 			this.lnkUpdate.TabStop = true;
-			this.lnkUpdate.Text = "https://autoresxtranslator.codeplex.com/";
+			this.lnkUpdate.Text = "https://github.com/salarcode/AutoResxTranslator/";
 			this.lnkUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUpdate_LinkClicked);
 			// 
 			// lnk
