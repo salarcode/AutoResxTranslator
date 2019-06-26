@@ -30,40 +30,51 @@ namespace AutoResxTranslator
 
             string route = "/translate?api-version=3.0&to=" + toLanguage + "&from=" + fromLanguage;
 
-            object[] body = new object[] { new { Text = text } };
-            var requestBody = JsonConvert.SerializeObject(body);
-
-            using (var client = new HttpClient())
-            using (var request = new HttpRequestMessage())
+            try
             {
-                // Build the request.
-                request.Method = HttpMethod.Post;
-                request.RequestUri = new Uri(host + route);
-                request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-                request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                request.Headers.Add("Ocp-Apim-Subscription-Region", region);
+                object[] body = new object[] { new { Text = text } };
+                var requestBody = JsonConvert.SerializeObject(body);
 
-                // Send the request and get response.
-                HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
-
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                using (var client = new HttpClient())
+                using (var request = new HttpRequestMessage())
                 {
-                    // Read response as a string.
-                    string resultFromMS = await response.Content.ReadAsStringAsync();
-                    TranslationResult[] deserializedOutput = JsonConvert.DeserializeObject<TranslationResult[]>(resultFromMS);
-                    // Iterate over the deserialized results.
-                    foreach (TranslationResult o in deserializedOutput)
+                    // Build the request.
+                    request.Method = HttpMethod.Post;
+                    request.RequestUri = new Uri(host + route);
+                    request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+                    request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+                    request.Headers.Add("Ocp-Apim-Subscription-Region", region);
+
+                    // Send the request and get response.
+                    HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        // Print the detected input languge and confidence score.
-                        Console.WriteLine("Detected input language: {0}\nConfidence score: {1}\n", o.DetectedLanguage.Language, o.DetectedLanguage.Score);
-                        // Iterate over the results and print each translation.
-                        foreach (Translation t in o.Translations)
+                        // Read response as a string.
+                        string resultFromMS = await response.Content.ReadAsStringAsync();
+                        TranslationResult[] deserializedOutput = JsonConvert.DeserializeObject<TranslationResult[]>(resultFromMS);
+                        // Iterate over the deserialized results.
+                        foreach (TranslationResult o in deserializedOutput)
                         {
-                            Console.WriteLine("Translated to {0}: {1}", t.To, t.Text);
-                            return t.Text;
+                            // Print the detected input languge and confidence score.
+                            Console.WriteLine("Detected input language: {0}\nConfidence score: {1}\n", o.DetectedLanguage.Language, o.DetectedLanguage.Score);
+                            // Iterate over the results and print each translation.
+                            foreach (Translation t in o.Translations)
+                            {
+                                Console.WriteLine("Translated to {0}: {1}", t.To, t.Text);
+                                return t.Text;
+                            }
                         }
                     }
+                    else
+                    {
+                        return "Translation failed! Exception: " + response.ReasonPhrase;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                return "Translation failed! Exception: " + e.Message;
             }
             return null;
         }
