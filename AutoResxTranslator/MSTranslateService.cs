@@ -56,12 +56,9 @@ namespace AutoResxTranslator
                         // Iterate over the deserialized results.
                         foreach (TranslationResult o in deserializedOutput)
                         {
-                            // Print the detected input languge and confidence score.
-                            Console.WriteLine("Detected input language: {0}\nConfidence score: {1}\n", o.DetectedLanguage.Language, o.DetectedLanguage.Score);
-                            // Iterate over the results and print each translation.
+                            // Iterate over the results, return the first result
                             foreach (Translation t in o.Translations)
                             {
-                                Console.WriteLine("Translated to {0}: {1}", t.To, t.Text);
                                 return t.Text;
                             }
                         }
