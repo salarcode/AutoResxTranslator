@@ -59,11 +59,13 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="GTranslateService.cs" />
+    <Compile Include="MSTranslateService.cs" />
     <Compile Include="OpResult.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResxExcel.cs" />
     <Compile Include="ResxTranslator.cs" />
+    <Compile Include="ServiceEnum.cs" />
     <Compile Include="SimpleJson.cs" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
