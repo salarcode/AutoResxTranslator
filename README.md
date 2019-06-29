@@ -12,3 +12,11 @@ Resx Translation
 Resx translation is in progress
 ------
 ![ResX-Translation](/Wiki/Images/resx-translating.png?raw=true)
+
+Import from Excel sheet
+------
+![excel-import](/Wiki/Images/excel-import.png?raw=true)
+
+Select Microsoft Cognitive Translation Service
+------
+![ms-translator](/Wiki/Images/ms-translator.png?raw=true)
