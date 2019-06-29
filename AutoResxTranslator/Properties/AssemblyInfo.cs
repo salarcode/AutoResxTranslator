@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
  * AutoResxTranslator
  * by Salar Khalilzadeh
  * 
- * https://autoresxtranslator.codeplex.com/
+ * https://github.com/salarcode/AutoResxTranslator/
  * Mozilla Public License v2
  */
 

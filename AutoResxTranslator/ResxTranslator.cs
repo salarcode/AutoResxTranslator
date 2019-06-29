@@ -5,7 +5,7 @@ using System.Xml;
  * AutoResxTranslator
  * by Salar Khalilzadeh
  * 
- * https://autoresxtranslator.codeplex.com/
+ * https://github.com/salarcode/AutoResxTranslator/
  * Mozilla Public License v2
  */
 namespace AutoResxTranslator

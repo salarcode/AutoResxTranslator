@@ -62,7 +62,7 @@
 			// btnClose
 			// 
 			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnClose.Location = new System.Drawing.Point(351, 194);
+			this.btnClose.Location = new System.Drawing.Point(406, 194);
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(75, 23);
 			this.btnClose.TabIndex = 1;
@@ -87,7 +87,7 @@
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Location = new System.Drawing.Point(146, 12);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(285, 176);
+			this.groupBox1.Size = new System.Drawing.Size(335, 176);
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
 			// 
@@ -114,7 +114,7 @@
 			this.lnkUpdate.AutoEllipsis = true;
 			this.lnkUpdate.Location = new System.Drawing.Point(75, 103);
 			this.lnkUpdate.Name = "lnkUpdate";
-			this.lnkUpdate.Size = new System.Drawing.Size(205, 13);
+			this.lnkUpdate.Size = new System.Drawing.Size(260, 13);
 			this.lnkUpdate.TabIndex = 1;
 			this.lnkUpdate.TabStop = true;
 			this.lnkUpdate.Text = "https://github.com/salarcode/AutoResxTranslator/";
@@ -220,7 +220,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnClose;
-			this.ClientSize = new System.Drawing.Size(443, 223);
+			this.ClientSize = new System.Drawing.Size(493, 223);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnClose);
 			this.Controls.Add(this.pictureBox1);

@@ -14,8 +14,8 @@ namespace AutoResxTranslator
 			"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1';";
 		public class ExcelFileInfo
 		{
-			public String[] SheetNames { get; set; }
-			public String[] SheetColumns { get; set; }
+			public string[] SheetNames { get; set; }
+			public string[] SheetColumns { get; set; }
 		}
 
 		public static ExcelFileInfo ReadExcel(string excelFile)
@@ -34,7 +34,7 @@ namespace AutoResxTranslator
 							return null;
 						}
 
-						result.SheetNames = new String[schema.Rows.Count];
+						result.SheetNames = new string[schema.Rows.Count];
 
 						// Add the sheet name to the string array.
 						for (int j = 0; j < schema.Rows.Count; j++)
@@ -88,7 +88,7 @@ namespace AutoResxTranslator
 			}
 		}
 
-		public static String[] GetExcelSheetNames(string excelFile)
+		public static string[] GetExcelSheetNames(string excelFile)
 		{
 			OleDbConnection objConn = null;
 			DataTable dt = null;
@@ -106,7 +106,7 @@ namespace AutoResxTranslator
 					return null;
 				}
 
-				var excelSheets = new String[dt.Rows.Count];
+				var excelSheets = new string[dt.Rows.Count];
 				int i = 0;
 
 				// Add the sheet name to the string array.
@@ -137,10 +137,8 @@ namespace AutoResxTranslator
 					objConn.Close();
 					objConn.Dispose();
 				}
-				if (dt != null)
-				{
-					dt.Dispose();
-				}
+
+				dt?.Dispose();
 			}
 		}
 

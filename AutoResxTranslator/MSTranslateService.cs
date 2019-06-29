@@ -17,8 +17,6 @@ namespace AutoResxTranslator
 	public class MsTranslateService
 	{
 		private const string MsCognitiveServicesApiUrl = "https://api-apc.cognitive.microsofttranslator.com";
-		//private static string subscriptionKey = "<YOUR-SUBSCRIPTION-KEY-HERE>";
-		//private static string region = "centralindia";
 
 		public static async Task<ResultHolder<string>> TranslateAsync(string text,
 			string fromLanguage,

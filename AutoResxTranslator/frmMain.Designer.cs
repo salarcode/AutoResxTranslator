@@ -104,8 +104,8 @@
 			// tabMain
 			// 
 			this.tabMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left) 
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.tabMain.Controls.Add(this.tabPage2);
 			this.tabMain.Controls.Add(this.tabResx);
 			this.tabMain.Controls.Add(this.tabPage1);
@@ -275,15 +275,15 @@
 			// lstResxLanguages
 			// 
 			this.lstResxLanguages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left) 
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.lstResxLanguages.CheckBoxes = true;
 			this.lstResxLanguages.HideSelection = false;
 			listViewItem1.StateImageIndex = 0;
 			listViewItem2.StateImageIndex = 0;
 			this.lstResxLanguages.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
+			listViewItem1,
+			listViewItem2});
 			this.lstResxLanguages.Location = new System.Drawing.Point(113, 71);
 			this.lstResxLanguages.Name = "lstResxLanguages";
 			this.lstResxLanguages.Size = new System.Drawing.Size(424, 182);
@@ -294,7 +294,7 @@
 			// lblResxTranslateStatus
 			// 
 			this.lblResxTranslateStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.lblResxTranslateStatus.AutoEllipsis = true;
 			this.lblResxTranslateStatus.ForeColor = System.Drawing.Color.Black;
 			this.lblResxTranslateStatus.Location = new System.Drawing.Point(113, 289);
@@ -316,7 +316,7 @@
 			// barResxProgress
 			// 
 			this.barResxProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.barResxProgress.Location = new System.Drawing.Point(113, 259);
 			this.barResxProgress.Name = "barResxProgress";
 			this.barResxProgress.Size = new System.Drawing.Size(424, 23);
@@ -345,7 +345,7 @@
 			// txtOutputDir
 			// 
 			this.txtOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtOutputDir.Location = new System.Drawing.Point(113, 44);
 			this.txtOutputDir.Name = "txtOutputDir";
 			this.txtOutputDir.Size = new System.Drawing.Size(424, 21);
@@ -385,7 +385,7 @@
 			// txtSourceResx
 			// 
 			this.txtSourceResx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtSourceResx.Location = new System.Drawing.Point(113, 17);
 			this.txtSourceResx.Name = "txtSourceResx";
 			this.txtSourceResx.ReadOnly = true;
@@ -472,7 +472,7 @@
 			// txtExcelFile
 			// 
 			this.txtExcelFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtExcelFile.Location = new System.Drawing.Point(107, 20);
 			this.txtExcelFile.Name = "txtExcelFile";
 			this.txtExcelFile.Size = new System.Drawing.Size(424, 21);
@@ -567,7 +567,7 @@
 			// txtExcelResx
 			// 
 			this.txtExcelResx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtExcelResx.Location = new System.Drawing.Point(113, 17);
 			this.txtExcelResx.Name = "txtExcelResx";
 			this.txtExcelResx.ReadOnly = true;
@@ -621,7 +621,7 @@
 			// groupBox2
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox2.Controls.Add(this.txtMsTranslationRegion);
 			this.groupBox2.Controls.Add(this.label13);
 			this.groupBox2.Controls.Add(this.txtMsTranslationKey);
@@ -793,10 +793,10 @@
 		private System.Windows.Forms.CheckBox chkExcelCreateAbsent;
 		private System.Windows.Forms.TabPage tabBrowser;
 		private System.Windows.Forms.WebBrowser webBrowser;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton rbtnGoogleTranslateService;
-        private System.Windows.Forms.RadioButton rbtnMsTranslateService;
+		private System.Windows.Forms.TabPage tabPage3;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.RadioButton rbtnGoogleTranslateService;
+		private System.Windows.Forms.RadioButton rbtnMsTranslateService;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.TextBox txtMsTranslationRegion;
 		private System.Windows.Forms.Label label13;

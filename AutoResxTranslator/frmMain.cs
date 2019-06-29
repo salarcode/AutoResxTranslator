@@ -14,7 +14,7 @@ using AutoResxTranslator.Definitions;
  * AutoResxTranslator
  * by Salar Khalilzadeh
  * 
- * https://autoresxtranslator.codeplex.com/
+ * https://github.com/salarcode/AutoResxTranslator/
  * Mozilla Public License v2
  */
 
@@ -425,7 +425,7 @@ namespace AutoResxTranslator
 				barResxProgress.Minimum = 0;
 				barResxProgress.Maximum = max;
 				barResxProgress.Value = pos;
-				lblResxTranslateStatus.Text = string.Format("Processing {0:00}/{1:00}, ", max, pos) + status;
+				lblResxTranslateStatus.Text = $"Processing {max:00}/{pos:00}, " + status;
 			}
 		}
 
@@ -472,85 +472,13 @@ namespace AutoResxTranslator
 				}
 			}
 			doc.PreserveWhitespace = false;
-			var writer = new XmlTextWriter(resxFile, Encoding.UTF8);
-			writer.Formatting = Formatting.Indented;
+			var writer = new XmlTextWriter(resxFile, Encoding.UTF8)
+			{
+				Formatting = Formatting.Indented
+			};
 			doc.Save(writer);
 			writer.Close();
 		}
-
-		internal delegate OpResult GetGoogleTranslatorKeyDeligate(string textToTranslate);
-
-		#region Old core to read old GoogleTranslation Validation Key
-
-		//internal OpResult GetGoogleTranslatorKey(string textToTranslate)
-		//{
-		//	if (IsGoogleTranslatorLoaded())
-		//	{
-		//		try
-		//		{
-		//			// ReSharper disable once PossibleNullReferenceException
-		//			object result = webBrowser.Document.InvokeScript("Vj", new object[] { textToTranslate });
-		//			if (result == null)
-		//			{
-		//				return new OpResult
-		//				{
-		//					Success = false,
-		//					Result = "Failed to find the translation function! Cantact the author please.\n"
-		//				};
-		//			}
-		//			return new OpResult
-		//			{
-		//				Success = true,
-		//				Result = result.ToString()
-		//			};
-		//		}
-		//		catch (Exception ex)
-		//		{
-		//			return new OpResult
-		//			{
-		//				Success = false,
-		//				Result = ex.Message
-		//			};
-		//		}
-		//	}
-		//	else
-		//	{
-		//		return new OpResult
-		//		{
-		//			Success = false,
-		//			Result = "Google Translator is not loaded yet!"
-		//		};
-		//	}
-		//}
-
-		//internal OpResult GetGoogleTranslatorKey_UiThread(string textToTranslate)
-		//{
-		//	if (this.InvokeRequired)
-		//	{
-		//		var asyncHandler = this.BeginInvoke(new GetGoogleTranslatorKeyDeligate(GetGoogleTranslatorKey),
-		//			new object[] {textToTranslate});
-
-		//		asyncHandler.AsyncWaitHandle.WaitOne();
-
-		//		var result = this.EndInvoke(asyncHandler) as OpResult;
-		//		if (result != null)
-		//		{
-		//			return result;
-		//		}
-		//		return new OpResult()
-		//		{
-		//			Success = false,
-		//			Result = "Failed to get the key for the translator from main ui thread."
-		//		};
-		//	}
-		//	else
-		//	{
-		//		return GetGoogleTranslatorKey(textToTranslate);
-		//	}
-		//}
-
-		#endregion
-
 
 		bool IsGoogleTranslatorLoaded()
 		{
@@ -719,8 +647,10 @@ namespace AutoResxTranslator
 
 		private void btnSelectExcel_Click(object sender, EventArgs e)
 		{
-			var dlg = new OpenFileDialog();
-			dlg.Filter = "Excel File|*.xls;xlsx";
+			var dlg = new OpenFileDialog
+			{
+				Filter = "Excel File|*.xls;xlsx"
+			};
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				txtExcelFile.Text = dlg.FileName;
@@ -729,8 +659,10 @@ namespace AutoResxTranslator
 
 		private void btnExcelResx_Click(object sender, EventArgs e)
 		{
-			var dlg = new OpenFileDialog();
-			dlg.Filter = "ResourceX File|*.resx";
+			var dlg = new OpenFileDialog
+			{
+				Filter = "ResourceX File|*.resx"
+			};
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				txtExcelResx.Text = dlg.FileName;
@@ -789,11 +721,12 @@ namespace AutoResxTranslator
 		private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
 		{
 			var doc = webBrowser.Document;
-			if (doc != null)
-				foreach (HtmlElement imgElemt in doc.Images)
-				{
-					imgElemt.SetAttribute("src", "");
-				}
+			if (doc == null)
+				return;
+			foreach (HtmlElement imgElemt in doc.Images)
+			{
+				imgElemt.SetAttribute("src", "");
+			}
 		}
 
 		private void RbtnMsTranslateService_CheckedChanged(object sender, EventArgs e)
