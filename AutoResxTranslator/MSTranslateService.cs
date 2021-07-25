@@ -16,7 +16,7 @@ namespace AutoResxTranslator
 	/// </summary>
 	public class MsTranslateService
 	{
-		private const string MsCognitiveServicesApiUrl = "https://api-apc.cognitive.microsofttranslator.com";
+		private const string MsCognitiveServicesApiUrl = "https://api.cognitive.microsofttranslator.com";
 
 		public static async Task<ResultHolder<string>> TranslateAsync(string text,
 			string fromLanguage,
