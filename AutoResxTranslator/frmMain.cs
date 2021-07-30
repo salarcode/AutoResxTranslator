@@ -248,6 +248,7 @@ namespace AutoResxTranslator
 					MessageBoxIcon.Error);
 				return;
 			}
+			bool translateFromKey = checkBoxTranslateFromKey.Checked;
 
 			var translationOptions = new TranslationOptions
 			{
@@ -257,13 +258,14 @@ namespace AutoResxTranslator
 			};
 
 			IsBusy(true);
-			new Action<string, string, TranslationOptions, List<string>, string, ResxProgressCallback>(TranslateResxFilesAsync).BeginInvoke(
+			new Action<string, string, TranslationOptions, List<string>, string, ResxProgressCallback, bool>(TranslateResxFilesAsync).BeginInvoke(
 				txtSourceResx.Text,
 				srcLng,
 				translationOptions,
 				destLanguages,
 				txtOutputDir.Text,
 				ResxWorkingProgress,
+				translateFromKey,
 				(x) => IsBusy(false),
 				null);
 		}
@@ -275,7 +277,8 @@ namespace AutoResxTranslator
 			string sourceLng,
 			TranslationOptions translationOptions,
 			List<string> desLanguages, string destDir,
-			ResxProgressCallback progress)
+			ResxProgressCallback progress,
+			bool translateFromKey)
 		{
 			int max = 0;
 			int pos = 0;
@@ -312,7 +315,7 @@ namespace AutoResxTranslator
 						var valueNode = ResxTranslator.GetDataValueNode(node);
 						if (valueNode == null) continue;
 
-						var orgText = valueNode.InnerText;
+						string orgText = translateFromKey ? ResxTranslator.GetDataKeyName(node) : valueNode.InnerText;
 						if (string.IsNullOrWhiteSpace(orgText))
 							continue;
 
@@ -330,7 +333,6 @@ namespace AutoResxTranslator
 							{
 								try
 								{
-
 									success = GTranslateService.Translate(orgText, sourceLng, destLng, textTranslatorUrlKey, out translated);
 								}
 								catch (Exception)
