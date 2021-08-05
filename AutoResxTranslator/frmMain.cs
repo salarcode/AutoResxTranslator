@@ -80,7 +80,8 @@ namespace AutoResxTranslator
 				{"no", "Norwegian"},
 				{"fa", "Persian"},
 				{"pl", "Polish"},
-				{"pt", "Portuguese"},
+				{"pt-PT", "Portuguese - Portugal"},
+				{"pt-BR", "Portuguese - Brazil"},
 				{"ro", "Romanian"},
 				{"ru", "Russian"},
 				{"sr", "Serbian"},
@@ -496,6 +497,8 @@ namespace AutoResxTranslator
 		private void frmMain_Load(object sender, EventArgs e)
 		{
 			FillComboBoxes();
+			txtMsTranslationKey.Text = Properties.Settings.Default.MicrosoftTranslatorKey;
+			txtMsTranslationRegion.Text = Properties.Settings.Default.MicrosoftTranslatorRegion;
 			tabMain.TabPages.Remove(tabBrowser);
 		}
 
@@ -606,7 +609,7 @@ namespace AutoResxTranslator
 		{
 			if (!ValidateResxTranslate())
 				return;
-			if (!IsGoogleTranslatorLoaded())
+			if (!IsGoogleTranslatorLoaded() && ServiceType == ServiceTypeEnum.Google)
 			{
 				MessageBox.Show("Google Translator is not loaded.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;

@@ -45,6 +45,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.tabResx = new System.Windows.Forms.TabPage();
+            this.checkBoxTranslateFromKey = new System.Windows.Forms.CheckBox();
             this.lstResxLanguages = new System.Windows.Forms.ListView();
             this.lblResxTranslateStatus = new System.Windows.Forms.Label();
             this.btnStartResxTranslate = new System.Windows.Forms.Button();
@@ -85,7 +86,6 @@
             this.rbtnGoogleTranslateService = new System.Windows.Forms.RadioButton();
             this.rbtnMsTranslateService = new System.Windows.Forms.RadioButton();
             this.lnkAbout = new System.Windows.Forms.LinkLabel();
-            this.checkBoxTranslateFromKey = new System.Windows.Forms.CheckBox();
             this.tabMain.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -273,6 +273,16 @@
             this.tabResx.TabIndex = 2;
             this.tabResx.Text = "ResX Translator";
             this.tabResx.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxTranslateFromKey
+            // 
+            this.checkBoxTranslateFromKey.AutoSize = true;
+            this.checkBoxTranslateFromKey.Location = new System.Drawing.Point(113, 45);
+            this.checkBoxTranslateFromKey.Name = "checkBoxTranslateFromKey";
+            this.checkBoxTranslateFromKey.Size = new System.Drawing.Size(122, 17);
+            this.checkBoxTranslateFromKey.TabIndex = 13;
+            this.checkBoxTranslateFromKey.Text = "Translate from Key?";
+            this.checkBoxTranslateFromKey.UseVisualStyleBackColor = true;
             // 
             // lstResxLanguages
             // 
@@ -705,16 +715,6 @@
             this.lnkAbout.TabStop = true;
             this.lnkAbout.Text = "About";
             this.lnkAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAbout_LinkClicked);
-            // 
-            // checkBoxTranslateFromKey
-            // 
-            this.checkBoxTranslateFromKey.AutoSize = true;
-            this.checkBoxTranslateFromKey.Location = new System.Drawing.Point(113, 45);
-            this.checkBoxTranslateFromKey.Name = "checkBoxTranslateFromKey";
-            this.checkBoxTranslateFromKey.Size = new System.Drawing.Size(122, 17);
-            this.checkBoxTranslateFromKey.TabIndex = 13;
-            this.checkBoxTranslateFromKey.Text = "Translate from Key?";
-            this.checkBoxTranslateFromKey.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
