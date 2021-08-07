@@ -29,8 +29,12 @@ namespace AutoResxTranslator
 				fromLanguage = null;
 			}
 
-			var route = "/translate?api-version=3.0&to=" + toLanguage + "&from=" + fromLanguage;
-
+			var route = "/translate?api-version=3.0&to=" + toLanguage;
+			if (!string.IsNullOrEmpty(fromLanguage))
+            {
+				route += "&from=" + fromLanguage;
+			}
+			
 			try
 			{
 				var body = new object[] { new { Text = text } };
@@ -45,6 +49,7 @@ namespace AutoResxTranslator
 					request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 					request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 					request.Headers.Add("Ocp-Apim-Subscription-Region", region);
+					request.Version = new Version("1.1");
 
 					// Send the request and get response.
 					var response = await client.SendAsync(request).ConfigureAwait(false);

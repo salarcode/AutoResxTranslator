@@ -1,7 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AutoResxTranslator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MicrosoftTranslatorKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">YOUR_KEY_HERE</Value>
+    </Setting>
+    <Setting Name="MicrosoftTranslatorRegion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">global</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

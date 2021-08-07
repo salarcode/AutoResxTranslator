@@ -80,7 +80,8 @@ namespace AutoResxTranslator
 				{"no", "Norwegian"},
 				{"fa", "Persian"},
 				{"pl", "Polish"},
-				{"pt", "Portuguese"},
+				{"pt-PT", "Portuguese - Portugal"},
+				{"pt-BR", "Portuguese - Brazil"},
 				{"ro", "Romanian"},
 				{"ru", "Russian"},
 				{"sr", "Serbian"},
@@ -248,6 +249,7 @@ namespace AutoResxTranslator
 					MessageBoxIcon.Error);
 				return;
 			}
+			bool translateFromKey = checkBoxTranslateFromKey.Checked;
 
 			var translationOptions = new TranslationOptions
 			{
@@ -257,13 +259,14 @@ namespace AutoResxTranslator
 			};
 
 			IsBusy(true);
-			new Action<string, string, TranslationOptions, List<string>, string, ResxProgressCallback>(TranslateResxFilesAsync).BeginInvoke(
+			new Action<string, string, TranslationOptions, List<string>, string, ResxProgressCallback, bool>(TranslateResxFilesAsync).BeginInvoke(
 				txtSourceResx.Text,
 				srcLng,
 				translationOptions,
 				destLanguages,
 				txtOutputDir.Text,
 				ResxWorkingProgress,
+				translateFromKey,
 				(x) => IsBusy(false),
 				null);
 		}
@@ -275,7 +278,8 @@ namespace AutoResxTranslator
 			string sourceLng,
 			TranslationOptions translationOptions,
 			List<string> desLanguages, string destDir,
-			ResxProgressCallback progress)
+			ResxProgressCallback progress,
+			bool translateFromKey)
 		{
 			int max = 0;
 			int pos = 0;
@@ -312,7 +316,7 @@ namespace AutoResxTranslator
 						var valueNode = ResxTranslator.GetDataValueNode(node);
 						if (valueNode == null) continue;
 
-						var orgText = valueNode.InnerText;
+						string orgText = translateFromKey ? ResxTranslator.GetDataKeyName(node) : valueNode.InnerText;
 						if (string.IsNullOrWhiteSpace(orgText))
 							continue;
 
@@ -330,7 +334,6 @@ namespace AutoResxTranslator
 							{
 								try
 								{
-
 									success = GTranslateService.Translate(orgText, sourceLng, destLng, textTranslatorUrlKey, out translated);
 								}
 								catch (Exception)
@@ -494,6 +497,8 @@ namespace AutoResxTranslator
 		private void frmMain_Load(object sender, EventArgs e)
 		{
 			FillComboBoxes();
+			txtMsTranslationKey.Text = Properties.Settings.Default.MicrosoftTranslatorKey;
+			txtMsTranslationRegion.Text = Properties.Settings.Default.MicrosoftTranslatorRegion;
 			tabMain.TabPages.Remove(tabBrowser);
 		}
 
@@ -604,7 +609,7 @@ namespace AutoResxTranslator
 		{
 			if (!ValidateResxTranslate())
 				return;
-			if (!IsGoogleTranslatorLoaded())
+			if (!IsGoogleTranslatorLoaded() && ServiceType == ServiceTypeEnum.Google)
 			{
 				MessageBox.Show("Google Translator is not loaded.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
