@@ -249,7 +249,7 @@ namespace AutoResxTranslator
 					MessageBoxIcon.Error);
 				return;
 			}
-			bool translateFromKey = checkBoxTranslateFromKey.Checked;
+			bool translateFromKey = chkTranslateFromKey.Checked;
 
 			var translationOptions = new TranslationOptions
 			{
@@ -316,7 +316,7 @@ namespace AutoResxTranslator
 						var valueNode = ResxTranslator.GetDataValueNode(node);
 						if (valueNode == null) continue;
 
-						string orgText = translateFromKey ? ResxTranslator.GetDataKeyName(node) : valueNode.InnerText;
+						var orgText = translateFromKey ? ResxTranslator.GetDataKeyName(node) : valueNode.InnerText;
 						if (string.IsNullOrWhiteSpace(orgText))
 							continue;
 
@@ -609,7 +609,7 @@ namespace AutoResxTranslator
 		{
 			if (!ValidateResxTranslate())
 				return;
-			if (!IsGoogleTranslatorLoaded() && ServiceType == ServiceTypeEnum.Google)
+			if (ServiceType == ServiceTypeEnum.Google && !IsGoogleTranslatorLoaded())
 			{
 				MessageBox.Show("Google Translator is not loaded.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;

@@ -31,10 +31,10 @@ namespace AutoResxTranslator
 
 			var route = "/translate?api-version=3.0&to=" + toLanguage;
 			if (!string.IsNullOrEmpty(fromLanguage))
-            {
+			{
 				route += "&from=" + fromLanguage;
 			}
-			
+
 			try
 			{
 				var body = new object[] { new { Text = text } };
