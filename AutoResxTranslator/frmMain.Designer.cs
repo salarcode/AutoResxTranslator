@@ -278,6 +278,7 @@
             // 
             // chkTranslateFromKey
             // 
+            this.chkTranslateFromKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkTranslateFromKey.AutoSize = true;
             this.chkTranslateFromKey.Location = new System.Drawing.Point(113, 259);
             this.chkTranslateFromKey.Name = "chkTranslateFromKey";
@@ -720,12 +721,13 @@
             // 
             // checkBoxTranslateOnlyNew
             // 
+            this.checkBoxTranslateOnlyNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxTranslateOnlyNew.AutoSize = true;
             this.checkBoxTranslateOnlyNew.Location = new System.Drawing.Point(113, 278);
             this.checkBoxTranslateOnlyNew.Name = "checkBoxTranslateOnlyNew";
             this.checkBoxTranslateOnlyNew.Size = new System.Drawing.Size(146, 17);
             this.checkBoxTranslateOnlyNew.TabIndex = 14;
-            this.checkBoxTranslateOnlyNew.Text = "Translate Only New Keys";
+            this.checkBoxTranslateOnlyNew.Text = "Translate only new keys";
             this.checkBoxTranslateOnlyNew.UseVisualStyleBackColor = true;
             // 
             // frmMain
