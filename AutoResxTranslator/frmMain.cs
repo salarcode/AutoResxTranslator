@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using AutoResxTranslator.Definitions;
@@ -20,7 +19,7 @@ using AutoResxTranslator.Definitions;
 
 namespace AutoResxTranslator
 {
-	public partial class frmMain : Form
+    public partial class frmMain : Form
 	{
 		public frmMain()
 		{
@@ -332,19 +331,20 @@ namespace AutoResxTranslator
 
 						var keyNode = ResxTranslator.GetDataKeyName(node);
 						var orgText = translateFromKey ? keyNode : valueNode.InnerText;
-						
+
 						if (destTranslateOnlyNewKeys)
 						{
 							int destIndex = index - destIndexCorrection;
 							var destNode = ResxTranslator.GetDataKeyName(destinationDataList.ElementAt(destIndex));
-							if ( destNode== keyNode)
+							if (destNode == keyNode)
 							{
 								valueNode.InnerText = ResxTranslator.GetDataValueNode(destinationDataList.ElementAt(destIndex)).InnerText;
 								if (chkCSVOutput.Checked)
 									CSVOutputArray[index] = keyNode + "," + valueNode.InnerText;
-								destIndexCorrection++;
 								continue;
 							}
+							else
+								destIndexCorrection++;
 						}
 
 						if (string.IsNullOrWhiteSpace(orgText))
@@ -433,7 +433,7 @@ namespace AutoResxTranslator
 						if (!Directory.Exists(txtCSVOutputDir.Text))
 							Directory.CreateDirectory(txtCSVOutputDir.Text);
 						File.WriteAllLines(txtCSVOutputDir.Text  + "\\" + sourceResxFilename + "." + destLng + ".resx.csv", new string[] { "KEY,Value" }, System.Text.Encoding.UTF8);
-                        File.AppendAllLines(txtCSVOutputDir.Text + "\\" + sourceResxFilename + "." + destLng + ".resx.csv", CSVOutputArray, System.Text.Encoding.UTF8);              
+						File.AppendAllLines(txtCSVOutputDir.Text + "\\" + sourceResxFilename + "." + destLng + ".resx.csv", CSVOutputArray, System.Text.Encoding.UTF8);              
 					}
 				}
 			}
