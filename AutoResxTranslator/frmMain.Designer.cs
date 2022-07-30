@@ -45,6 +45,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.tabResx = new System.Windows.Forms.TabPage();
+            this.checkBoxTranslateOnlyNew = new System.Windows.Forms.CheckBox();
             this.chkTranslateFromKey = new System.Windows.Forms.CheckBox();
             this.lstResxLanguages = new System.Windows.Forms.ListView();
             this.lblResxTranslateStatus = new System.Windows.Forms.Label();
@@ -86,7 +87,10 @@
             this.rbtnGoogleTranslateService = new System.Windows.Forms.RadioButton();
             this.rbtnMsTranslateService = new System.Windows.Forms.RadioButton();
             this.lnkAbout = new System.Windows.Forms.LinkLabel();
-            this.checkBoxTranslateOnlyNew = new System.Windows.Forms.CheckBox();
+            this.btnSelectCSVOutputDir = new System.Windows.Forms.Button();
+            this.txtCSVOutputDir = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.chkCSVOutput = new System.Windows.Forms.CheckBox();
             this.tabMain.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -116,7 +120,7 @@
             this.tabMain.Location = new System.Drawing.Point(12, 12);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(650, 394);
+            this.tabMain.Size = new System.Drawing.Size(680, 394);
             this.tabMain.TabIndex = 0;
             // 
             // tabPage2
@@ -125,7 +129,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(642, 346);
+            this.tabPage2.Size = new System.Drawing.Size(642, 368);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Text Translator";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -146,8 +150,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.txtDesc);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(636, 340);
-            this.splitContainer1.SplitterDistance = 156;
+            this.splitContainer1.Size = new System.Drawing.Size(636, 362);
+            this.splitContainer1.SplitterDistance = 166;
             this.splitContainer1.TabIndex = 0;
             // 
             // txtSrc
@@ -158,7 +162,7 @@
             this.txtSrc.Multiline = true;
             this.txtSrc.Name = "txtSrc";
             this.txtSrc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtSrc.Size = new System.Drawing.Size(636, 125);
+            this.txtSrc.Size = new System.Drawing.Size(636, 135);
             this.txtSrc.TabIndex = 1;
             this.txtSrc.Text = "Bienvenue.";
             // 
@@ -231,7 +235,7 @@
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
             this.txtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDesc.Size = new System.Drawing.Size(636, 159);
+            this.txtDesc.Size = new System.Drawing.Size(636, 171);
             this.txtDesc.TabIndex = 2;
             // 
             // panel2
@@ -254,6 +258,10 @@
             // 
             // tabResx
             // 
+            this.tabResx.Controls.Add(this.chkCSVOutput);
+            this.tabResx.Controls.Add(this.btnSelectCSVOutputDir);
+            this.tabResx.Controls.Add(this.txtCSVOutputDir);
+            this.tabResx.Controls.Add(this.label14);
             this.tabResx.Controls.Add(this.checkBoxTranslateOnlyNew);
             this.tabResx.Controls.Add(this.chkTranslateFromKey);
             this.tabResx.Controls.Add(this.lstResxLanguages);
@@ -271,10 +279,21 @@
             this.tabResx.Location = new System.Drawing.Point(4, 22);
             this.tabResx.Name = "tabResx";
             this.tabResx.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResx.Size = new System.Drawing.Size(642, 368);
+            this.tabResx.Size = new System.Drawing.Size(672, 368);
             this.tabResx.TabIndex = 2;
             this.tabResx.Text = "ResX Translator";
             this.tabResx.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxTranslateOnlyNew
+            // 
+            this.checkBoxTranslateOnlyNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxTranslateOnlyNew.AutoSize = true;
+            this.checkBoxTranslateOnlyNew.Location = new System.Drawing.Point(113, 278);
+            this.checkBoxTranslateOnlyNew.Name = "checkBoxTranslateOnlyNew";
+            this.checkBoxTranslateOnlyNew.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxTranslateOnlyNew.TabIndex = 14;
+            this.checkBoxTranslateOnlyNew.Text = "Translate only new keys";
+            this.checkBoxTranslateOnlyNew.UseVisualStyleBackColor = true;
             // 
             // chkTranslateFromKey
             // 
@@ -299,9 +318,9 @@
             this.lstResxLanguages.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2});
-            this.lstResxLanguages.Location = new System.Drawing.Point(113, 71);
+            this.lstResxLanguages.Location = new System.Drawing.Point(113, 98);
             this.lstResxLanguages.Name = "lstResxLanguages";
-            this.lstResxLanguages.Size = new System.Drawing.Size(424, 182);
+            this.lstResxLanguages.Size = new System.Drawing.Size(454, 155);
             this.lstResxLanguages.TabIndex = 12;
             this.lstResxLanguages.UseCompatibleStateImageBehavior = false;
             this.lstResxLanguages.View = System.Windows.Forms.View.List;
@@ -314,13 +333,13 @@
             this.lblResxTranslateStatus.ForeColor = System.Drawing.Color.Black;
             this.lblResxTranslateStatus.Location = new System.Drawing.Point(113, 336);
             this.lblResxTranslateStatus.Name = "lblResxTranslateStatus";
-            this.lblResxTranslateStatus.Size = new System.Drawing.Size(505, 27);
+            this.lblResxTranslateStatus.Size = new System.Drawing.Size(535, 27);
             this.lblResxTranslateStatus.TabIndex = 11;
             // 
             // btnStartResxTranslate
             // 
             this.btnStartResxTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStartResxTranslate.Location = new System.Drawing.Point(544, 306);
+            this.btnStartResxTranslate.Location = new System.Drawing.Point(574, 306);
             this.btnStartResxTranslate.Name = "btnStartResxTranslate";
             this.btnStartResxTranslate.Size = new System.Drawing.Size(75, 23);
             this.btnStartResxTranslate.TabIndex = 10;
@@ -334,13 +353,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.barResxProgress.Location = new System.Drawing.Point(113, 306);
             this.barResxProgress.Name = "barResxProgress";
-            this.barResxProgress.Size = new System.Drawing.Size(424, 23);
+            this.barResxProgress.Size = new System.Drawing.Size(454, 23);
             this.barResxProgress.TabIndex = 9;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 73);
+            this.label6.Location = new System.Drawing.Point(7, 97);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 13);
             this.label6.TabIndex = 8;
@@ -349,7 +368,7 @@
             // btnSelectOutputDir
             // 
             this.btnSelectOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectOutputDir.Location = new System.Drawing.Point(543, 42);
+            this.btnSelectOutputDir.Location = new System.Drawing.Point(573, 42);
             this.btnSelectOutputDir.Name = "btnSelectOutputDir";
             this.btnSelectOutputDir.Size = new System.Drawing.Size(75, 23);
             this.btnSelectOutputDir.TabIndex = 6;
@@ -363,7 +382,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOutputDir.Location = new System.Drawing.Point(113, 44);
             this.txtOutputDir.Name = "txtOutputDir";
-            this.txtOutputDir.Size = new System.Drawing.Size(424, 21);
+            this.txtOutputDir.Size = new System.Drawing.Size(454, 21);
             this.txtOutputDir.TabIndex = 5;
             // 
             // label5
@@ -378,7 +397,7 @@
             // btnSelectResxSource
             // 
             this.btnSelectResxSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectResxSource.Location = new System.Drawing.Point(543, 15);
+            this.btnSelectResxSource.Location = new System.Drawing.Point(573, 15);
             this.btnSelectResxSource.Name = "btnSelectResxSource";
             this.btnSelectResxSource.Size = new System.Drawing.Size(75, 23);
             this.btnSelectResxSource.TabIndex = 3;
@@ -392,7 +411,7 @@
             this.cmbSourceResxLng.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cmbSourceResxLng.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbSourceResxLng.FormattingEnabled = true;
-            this.cmbSourceResxLng.Location = new System.Drawing.Point(416, 17);
+            this.cmbSourceResxLng.Location = new System.Drawing.Point(446, 17);
             this.cmbSourceResxLng.Name = "cmbSourceResxLng";
             this.cmbSourceResxLng.Size = new System.Drawing.Size(121, 21);
             this.cmbSourceResxLng.TabIndex = 2;
@@ -404,7 +423,7 @@
             this.txtSourceResx.Location = new System.Drawing.Point(113, 17);
             this.txtSourceResx.Name = "txtSourceResx";
             this.txtSourceResx.ReadOnly = true;
-            this.txtSourceResx.Size = new System.Drawing.Size(297, 21);
+            this.txtSourceResx.Size = new System.Drawing.Size(327, 21);
             this.txtSourceResx.TabIndex = 1;
             // 
             // label4
@@ -425,7 +444,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(642, 346);
+            this.tabPage1.Size = new System.Drawing.Size(642, 368);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Excel Import";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -604,7 +623,7 @@
             this.tabBrowser.Location = new System.Drawing.Point(4, 22);
             this.tabBrowser.Name = "tabBrowser";
             this.tabBrowser.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBrowser.Size = new System.Drawing.Size(642, 346);
+            this.tabBrowser.Size = new System.Drawing.Size(642, 368);
             this.tabBrowser.TabIndex = 4;
             this.tabBrowser.Text = "Google Translator";
             this.tabBrowser.UseVisualStyleBackColor = true;
@@ -617,7 +636,7 @@
             this.webBrowser.Location = new System.Drawing.Point(3, 3);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(636, 340);
+            this.webBrowser.Size = new System.Drawing.Size(636, 362);
             this.webBrowser.TabIndex = 0;
             this.webBrowser.Url = new System.Uri("https://translate.google.com/", System.UriKind.Absolute);
             this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
@@ -628,7 +647,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(642, 346);
+            this.tabPage3.Size = new System.Drawing.Size(642, 368);
             this.tabPage3.TabIndex = 5;
             this.tabPage3.Text = "Translate Service";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -711,7 +730,7 @@
             // 
             this.lnkAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkAbout.AutoSize = true;
-            this.lnkAbout.Location = new System.Drawing.Point(621, 13);
+            this.lnkAbout.Location = new System.Drawing.Point(651, 13);
             this.lnkAbout.Name = "lnkAbout";
             this.lnkAbout.Size = new System.Drawing.Size(36, 13);
             this.lnkAbout.TabIndex = 3;
@@ -719,22 +738,54 @@
             this.lnkAbout.Text = "About";
             this.lnkAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAbout_LinkClicked);
             // 
-            // checkBoxTranslateOnlyNew
+            // btnSelectCSVOutputDir
             // 
-            this.checkBoxTranslateOnlyNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxTranslateOnlyNew.AutoSize = true;
-            this.checkBoxTranslateOnlyNew.Location = new System.Drawing.Point(113, 278);
-            this.checkBoxTranslateOnlyNew.Name = "checkBoxTranslateOnlyNew";
-            this.checkBoxTranslateOnlyNew.Size = new System.Drawing.Size(146, 17);
-            this.checkBoxTranslateOnlyNew.TabIndex = 14;
-            this.checkBoxTranslateOnlyNew.Text = "Translate only new keys";
-            this.checkBoxTranslateOnlyNew.UseVisualStyleBackColor = true;
+            this.btnSelectCSVOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelectCSVOutputDir.Enabled = false;
+            this.btnSelectCSVOutputDir.Location = new System.Drawing.Point(572, 69);
+            this.btnSelectCSVOutputDir.Name = "btnSelectCSVOutputDir";
+            this.btnSelectCSVOutputDir.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectCSVOutputDir.TabIndex = 17;
+            this.btnSelectCSVOutputDir.Text = "Select";
+            this.btnSelectCSVOutputDir.UseVisualStyleBackColor = true;
+            this.btnSelectCSVOutputDir.Click += new System.EventHandler(this.btnSelectCSVOutputDir_Click);
+            // 
+            // txtCSVOutputDir
+            // 
+            this.txtCSVOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCSVOutputDir.Enabled = false;
+            this.txtCSVOutputDir.Location = new System.Drawing.Point(113, 71);
+            this.txtCSVOutputDir.Name = "txtCSVOutputDir";
+            this.txtCSVOutputDir.Size = new System.Drawing.Size(327, 21);
+            this.txtCSVOutputDir.TabIndex = 16;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(19, 74);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(87, 13);
+            this.label14.TabIndex = 15;
+            this.label14.Text = "CSV Output Dir.:";
+            // 
+            // chkCSVOutput
+            // 
+            this.chkCSVOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCSVOutput.AutoSize = true;
+            this.chkCSVOutput.Location = new System.Drawing.Point(454, 75);
+            this.chkCSVOutput.Name = "chkCSVOutput";
+            this.chkCSVOutput.Size = new System.Drawing.Size(113, 17);
+            this.chkCSVOutput.TabIndex = 18;
+            this.chkCSVOutput.Text = "Export as CSV too";
+            this.chkCSVOutput.UseVisualStyleBackColor = true;
+            this.chkCSVOutput.CheckedChanged += new System.EventHandler(this.chkCSVOutput_CheckedChanged);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 418);
+            this.ClientSize = new System.Drawing.Size(704, 418);
             this.Controls.Add(this.lnkAbout);
             this.Controls.Add(this.tabMain);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
@@ -829,6 +880,10 @@
 		private System.Windows.Forms.TextBox txtMsTranslationKey;
         private System.Windows.Forms.CheckBox chkTranslateFromKey;
         private System.Windows.Forms.CheckBox checkBoxTranslateOnlyNew;
+        private System.Windows.Forms.CheckBox chkCSVOutput;
+        private System.Windows.Forms.Button btnSelectCSVOutputDir;
+        private System.Windows.Forms.TextBox txtCSVOutputDir;
+        private System.Windows.Forms.Label label14;
     }
 }
 
