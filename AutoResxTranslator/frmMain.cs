@@ -298,6 +298,15 @@ namespace AutoResxTranslator
 				doc.Load(sourceResx);
 				var dataList = ResxTranslator.ReadResxData(doc);
 				max = dataList.Count;
+				List<XmlNode> targetDataList = new List<XmlNode>();
+				bool FileExist = File.Exists(destFile);
+				if (checkBoxTranslateOnlyNew.Checked && FileExist)
+				{
+					var Targetdoc = new XmlDocument();
+					Targetdoc.Load(destFile);
+
+					targetDataList = ResxTranslator.ReadResxData(Targetdoc);
+				}
 
 				pos = 0;
 				status = "Translating language: " + destLng;
@@ -305,18 +314,29 @@ namespace AutoResxTranslator
 
 				try
 				{
-
-					foreach (var node in dataList)
+					int indexCorrection = 0;
+					foreach (var (node, index) in dataList.Select((n, i) => (n, i)))
 					{
 						status = "Translating language: " + destLng;
 						pos += 1;
 						progress.BeginInvoke(max, pos, status, null, null);
-
-
 						var valueNode = ResxTranslator.GetDataValueNode(node);
+						var orgText = translateFromKey ? ResxTranslator.GetDataKeyName(node) : valueNode.InnerText;
+						if (checkBoxTranslateOnlyNew.Checked && FileExist)
+						{
+							int Destindex = index - indexCorrection;
+							if (ResxTranslator.GetDataKeyName(targetDataList.ElementAt(Destindex)) == ResxTranslator.GetDataKeyName(node))
+							{
+								valueNode.InnerText = ResxTranslator.GetDataValueNode(targetDataList.ElementAt(Destindex)).InnerText;
+								indexCorrection++;
+								continue;
+							}
+
+						}
+
 						if (valueNode == null) continue;
 
-						var orgText = translateFromKey ? ResxTranslator.GetDataKeyName(node) : valueNode.InnerText;
+
 						if (string.IsNullOrWhiteSpace(orgText))
 							continue;
 
@@ -574,7 +594,18 @@ namespace AutoResxTranslator
 				{
 					txtOutputDir.Text = Path.GetDirectoryName(txtSourceResx.Text);
 				}
-
+				string[] filePaths = Directory.GetFiles(Path.GetDirectoryName(txtSourceResx.Text), "*.resx");
+				foreach (int i in lstResxLanguages.CheckedIndices)
+					lstResxLanguages.Items[i].Checked = false;
+				foreach (var file in filePaths)
+				{
+					var haslng = ReadLanguageName(file);
+					if (haslng != "")
+					{
+						var haskey = _languages.FirstOrDefault(x => string.Compare(x.Key, haslng, StringComparison.InvariantCultureIgnoreCase) == 0);
+						lstResxLanguages.Items[lstResxLanguages.Items.IndexOfKey(haskey.Key)].Checked = true;
+					}
+				}
 				var lng = ReadLanguageName(txtSourceResx.Text);
 				var key = _languages.FirstOrDefault(x => string.Compare(x.Key, lng, StringComparison.InvariantCultureIgnoreCase) == 0);
 				if (key.Key != null)
