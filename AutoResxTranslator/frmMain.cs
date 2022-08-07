@@ -19,7 +19,7 @@ using AutoResxTranslator.Definitions;
 
 namespace AutoResxTranslator
 {
-    public partial class frmMain : Form
+	public partial class frmMain : Form
 	{
 		public frmMain()
 		{
@@ -258,7 +258,7 @@ namespace AutoResxTranslator
 			};
 
 			IsBusy(true);
-			new Action<string, string, TranslationOptions, List<string>, string, ResxProgressCallback, bool, bool>(TranslateResxFilesAsync).BeginInvoke(
+			new Action<string, string, TranslationOptions, List<string>, string, ResxProgressCallback, bool, bool, bool, string>(TranslateResxFilesAsync).BeginInvoke(
 				txtSourceResx.Text,
 				srcLng,
 				translationOptions,
@@ -267,6 +267,8 @@ namespace AutoResxTranslator
 				ResxWorkingProgress,
 				translateFromKey,
 				checkBoxTranslateOnlyNew.Checked,
+				chkCSVOutput.Checked,
+				txtCSVOutputDir.Text,
 				(x) => IsBusy(false),
 				null);
 		}
@@ -280,7 +282,9 @@ namespace AutoResxTranslator
 			List<string> desLanguages, string destDir,
 			ResxProgressCallback progress,
 			bool translateFromKey,
-			bool translateOnlyNewKeys)
+			bool translateOnlyNewKeys,
+			bool generateCsv,
+			string generateCsvDir)
 		{
 			int max = 0;
 			int pos = 0;
@@ -300,7 +304,10 @@ namespace AutoResxTranslator
 				var dataList = ResxTranslator.ReadResxData(doc);
 				max = dataList.Count;
 
-				string[] CSVOutputArray = new string[max];
+				string[] csvOutputDataBuffer = null;
+				if (generateCsv)
+					csvOutputDataBuffer = new string[max];
+
 				List<XmlNode> destinationDataList = null;
 				var destTranslateOnlyNewKeys =
 						translateOnlyNewKeys &&
@@ -339,8 +346,8 @@ namespace AutoResxTranslator
 							if (destNode == keyNode)
 							{
 								valueNode.InnerText = ResxTranslator.GetDataValueNode(destinationDataList.ElementAt(destIndex)).InnerText;
-								if (chkCSVOutput.Checked)
-									CSVOutputArray[index] = keyNode + "," + valueNode.InnerText;
+								if (generateCsv)
+									csvOutputDataBuffer[index] = keyNode + "," + valueNode.InnerText;
 								continue;
 							}
 							else
@@ -420,20 +427,23 @@ namespace AutoResxTranslator
 								catch { }
 							}
 						}
-						if (chkCSVOutput.Checked)
-							CSVOutputArray[index]= keyNode + "," + valueNode.InnerText;
+						if (generateCsv)
+							csvOutputDataBuffer[index] = keyNode + "," + valueNode.InnerText;
 					}
 				}
 				finally
 				{
-					// now save that shit!
+					// now save the data!
 					doc.Save(destFile);
-					if (chkCSVOutput.Checked)
+
+					if (generateCsv)
 					{
-						if (!Directory.Exists(txtCSVOutputDir.Text))
-							Directory.CreateDirectory(txtCSVOutputDir.Text);
-						File.WriteAllLines(txtCSVOutputDir.Text  + "\\" + sourceResxFilename + "." + destLng + ".resx.csv", new string[] { "KEY,Value" }, System.Text.Encoding.UTF8);
-						File.AppendAllLines(txtCSVOutputDir.Text + "\\" + sourceResxFilename + "." + destLng + ".resx.csv", CSVOutputArray, System.Text.Encoding.UTF8);              
+						if (!Directory.Exists(generateCsvDir))
+							Directory.CreateDirectory(generateCsvDir);
+						var csvFile = Path.Combine(generateCsvDir, sourceResxFilename + "." + destLng + ".resx.csv");
+
+						File.WriteAllLines(csvFile, new string[] { "KEY,Value" }, Encoding.UTF8);
+						File.AppendAllLines(csvFile, csvOutputDataBuffer, Encoding.UTF8);
 					}
 				}
 			}
@@ -795,15 +805,18 @@ namespace AutoResxTranslator
 			txtMsTranslationRegion.Enabled = rbtnMsTranslateService.Checked;
 		}
 
-        private void chkCSVOutput_CheckedChanged(object sender, EventArgs e)
-        {
+		private void chkCSVOutput_CheckedChanged(object sender, EventArgs e)
+		{
 			txtCSVOutputDir.Enabled = btnSelectCSVOutputDir.Enabled = chkCSVOutput.Checked;
-        }
+		}
 
-        private void btnSelectCSVOutputDir_Click(object sender, EventArgs e)
-        {
-			var dlg = new FolderBrowserDialog();
-			dlg.ShowNewFolderButton = true;
+		private void btnSelectCSVOutputDir_Click(object sender, EventArgs e)
+		{
+			var dlg = new FolderBrowserDialog
+			{
+				ShowNewFolderButton = true,
+				Description = "Please select output directory for CSV files:"
+			};
 			if (txtCSVOutputDir.Text.Length > 0)
 			{
 				dlg.SelectedPath = txtCSVOutputDir.Text;
@@ -813,5 +826,5 @@ namespace AutoResxTranslator
 				txtCSVOutputDir.Text = dlg.SelectedPath;
 			}
 		}
-    }
+	}
 }
