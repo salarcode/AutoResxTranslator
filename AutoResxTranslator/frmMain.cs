@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using AutoResxTranslator.Definitions;
@@ -20,7 +19,7 @@ using AutoResxTranslator.Definitions;
 
 namespace AutoResxTranslator
 {
-	public partial class frmMain : Form
+    public partial class frmMain : Form
 	{
 		public frmMain()
 		{
@@ -301,7 +300,7 @@ namespace AutoResxTranslator
 				var dataList = ResxTranslator.ReadResxData(doc);
 				max = dataList.Count;
 
-
+				string[] CSVOutputArray = new string[max];
 				List<XmlNode> destinationDataList = null;
 				var destTranslateOnlyNewKeys =
 						translateOnlyNewKeys &&
@@ -332,16 +331,20 @@ namespace AutoResxTranslator
 
 						var keyNode = ResxTranslator.GetDataKeyName(node);
 						var orgText = translateFromKey ? keyNode : valueNode.InnerText;
-						
+
 						if (destTranslateOnlyNewKeys)
 						{
 							int destIndex = index - destIndexCorrection;
-							if (ResxTranslator.GetDataKeyName(destinationDataList.ElementAt(destIndex)) == keyNode)
+							var destNode = ResxTranslator.GetDataKeyName(destinationDataList.ElementAt(destIndex));
+							if (destNode == keyNode)
 							{
 								valueNode.InnerText = ResxTranslator.GetDataValueNode(destinationDataList.ElementAt(destIndex)).InnerText;
-								destIndexCorrection++;
+								if (chkCSVOutput.Checked)
+									CSVOutputArray[index] = keyNode + "," + valueNode.InnerText;
 								continue;
 							}
+							else
+								destIndexCorrection++;
 						}
 
 						if (string.IsNullOrWhiteSpace(orgText))
@@ -417,12 +420,21 @@ namespace AutoResxTranslator
 								catch { }
 							}
 						}
+						if (chkCSVOutput.Checked)
+							CSVOutputArray[index]= keyNode + "," + valueNode.InnerText;
 					}
 				}
 				finally
 				{
 					// now save that shit!
 					doc.Save(destFile);
+					if (chkCSVOutput.Checked)
+					{
+						if (!Directory.Exists(txtCSVOutputDir.Text))
+							Directory.CreateDirectory(txtCSVOutputDir.Text);
+						File.WriteAllLines(txtCSVOutputDir.Text  + "\\" + sourceResxFilename + "." + destLng + ".resx.csv", new string[] { "KEY,Value" }, System.Text.Encoding.UTF8);
+						File.AppendAllLines(txtCSVOutputDir.Text + "\\" + sourceResxFilename + "." + destLng + ".resx.csv", CSVOutputArray, System.Text.Encoding.UTF8);              
+					}
 				}
 			}
 
@@ -597,6 +609,7 @@ namespace AutoResxTranslator
 				if (txtOutputDir.Text.Length == 0)
 				{
 					txtOutputDir.Text = Path.GetDirectoryName(txtSourceResx.Text);
+					txtCSVOutputDir.Text = Path.GetDirectoryName(txtSourceResx.Text);
 				}
 
 				// reset selection
@@ -635,7 +648,7 @@ namespace AutoResxTranslator
 		{
 			var dlg = new FolderBrowserDialog();
 			dlg.ShowNewFolderButton = true;
-			dlg.RootFolder = Environment.SpecialFolder.MyComputer;
+			// Remove dialog open directly without selected directory --> dlg.RootFolder = Environment.SpecialFolder.MyComputer;
 			if (txtOutputDir.Text.Length > 0)
 			{
 				dlg.SelectedPath = txtOutputDir.Text;
@@ -781,5 +794,24 @@ namespace AutoResxTranslator
 			txtMsTranslationKey.Enabled = rbtnMsTranslateService.Checked;
 			txtMsTranslationRegion.Enabled = rbtnMsTranslateService.Checked;
 		}
-	}
+
+        private void chkCSVOutput_CheckedChanged(object sender, EventArgs e)
+        {
+			txtCSVOutputDir.Enabled = btnSelectCSVOutputDir.Enabled = chkCSVOutput.Checked;
+        }
+
+        private void btnSelectCSVOutputDir_Click(object sender, EventArgs e)
+        {
+			var dlg = new FolderBrowserDialog();
+			dlg.ShowNewFolderButton = true;
+			if (txtCSVOutputDir.Text.Length > 0)
+			{
+				dlg.SelectedPath = txtCSVOutputDir.Text;
+			}
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				txtCSVOutputDir.Text = dlg.SelectedPath;
+			}
+		}
+    }
 }
