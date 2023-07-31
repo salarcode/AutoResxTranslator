@@ -706,11 +706,11 @@ namespace AutoResxTranslator
 				return;
 			}
 			cmbExcelSheets.DataSource = excel.SheetNames;
-			cmbExcelKey.DataSource = excel.SheetColumns;
-			cmbExcelTranslation.DataSource = excel.SheetColumns;
-			if (Array.IndexOf(excel.SheetColumns, "Name") != -1)
+			cmbExcelKey.DataSource = excel.SheetColumnsKey;
+			cmbExcelTranslation.DataSource = excel.SheetColumnsTranslation;
+			if (Array.IndexOf(excel.SheetColumnsKey, "Name") != -1)
 			{
-				cmbExcelKey.SelectedValue = "Name";
+				cmbExcelKey.SelectedIndex = Array.IndexOf(excel.SheetColumnsKey, "Name");
 			}
 			btnImportExcel.Enabled = true;
 		}
