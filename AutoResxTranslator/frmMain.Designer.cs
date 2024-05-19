@@ -45,6 +45,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.tabResx = new System.Windows.Forms.TabPage();
+            this.chkCSVOutput = new System.Windows.Forms.CheckBox();
+            this.btnSelectCSVOutputDir = new System.Windows.Forms.Button();
+            this.txtCSVOutputDir = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.checkBoxTranslateOnlyNew = new System.Windows.Forms.CheckBox();
             this.chkTranslateFromKey = new System.Windows.Forms.CheckBox();
             this.lstResxLanguages = new System.Windows.Forms.ListView();
@@ -80,6 +84,11 @@
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbDeeplApiType = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtDeepLTranslationKey = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.rbtnDeepLTranslateService = new System.Windows.Forms.RadioButton();
             this.txtMsTranslationRegion = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtMsTranslationKey = new System.Windows.Forms.TextBox();
@@ -87,10 +96,6 @@
             this.rbtnGoogleTranslateService = new System.Windows.Forms.RadioButton();
             this.rbtnMsTranslateService = new System.Windows.Forms.RadioButton();
             this.lnkAbout = new System.Windows.Forms.LinkLabel();
-            this.btnSelectCSVOutputDir = new System.Windows.Forms.Button();
-            this.txtCSVOutputDir = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.chkCSVOutput = new System.Windows.Forms.CheckBox();
             this.tabMain.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -122,6 +127,8 @@
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(680, 394);
             this.tabMain.TabIndex = 0;
+            this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
+            this.tabMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabMain_Selected);
             // 
             // tabPage2
             // 
@@ -129,7 +136,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(642, 368);
+            this.tabPage2.Size = new System.Drawing.Size(672, 368);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Text Translator";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -150,7 +157,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.txtDesc);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(636, 362);
+            this.splitContainer1.Size = new System.Drawing.Size(666, 362);
             this.splitContainer1.SplitterDistance = 166;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -162,7 +169,7 @@
             this.txtSrc.Multiline = true;
             this.txtSrc.Name = "txtSrc";
             this.txtSrc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtSrc.Size = new System.Drawing.Size(636, 135);
+            this.txtSrc.Size = new System.Drawing.Size(666, 135);
             this.txtSrc.TabIndex = 1;
             this.txtSrc.Text = "Bienvenue.";
             // 
@@ -176,7 +183,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(636, 31);
+            this.panel1.Size = new System.Drawing.Size(666, 31);
             this.panel1.TabIndex = 0;
             // 
             // btnTranslate
@@ -235,7 +242,7 @@
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
             this.txtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDesc.Size = new System.Drawing.Size(636, 171);
+            this.txtDesc.Size = new System.Drawing.Size(666, 171);
             this.txtDesc.TabIndex = 2;
             // 
             // panel2
@@ -244,7 +251,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(636, 21);
+            this.panel2.Size = new System.Drawing.Size(666, 21);
             this.panel2.TabIndex = 1;
             // 
             // label3
@@ -283,6 +290,49 @@
             this.tabResx.TabIndex = 2;
             this.tabResx.Text = "ResX Translator";
             this.tabResx.UseVisualStyleBackColor = true;
+            // 
+            // chkCSVOutput
+            // 
+            this.chkCSVOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCSVOutput.AutoSize = true;
+            this.chkCSVOutput.Location = new System.Drawing.Point(454, 75);
+            this.chkCSVOutput.Name = "chkCSVOutput";
+            this.chkCSVOutput.Size = new System.Drawing.Size(113, 17);
+            this.chkCSVOutput.TabIndex = 18;
+            this.chkCSVOutput.Text = "Export as CSV too";
+            this.chkCSVOutput.UseVisualStyleBackColor = true;
+            this.chkCSVOutput.CheckedChanged += new System.EventHandler(this.chkCSVOutput_CheckedChanged);
+            // 
+            // btnSelectCSVOutputDir
+            // 
+            this.btnSelectCSVOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelectCSVOutputDir.Enabled = false;
+            this.btnSelectCSVOutputDir.Location = new System.Drawing.Point(572, 69);
+            this.btnSelectCSVOutputDir.Name = "btnSelectCSVOutputDir";
+            this.btnSelectCSVOutputDir.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectCSVOutputDir.TabIndex = 17;
+            this.btnSelectCSVOutputDir.Text = "Select";
+            this.btnSelectCSVOutputDir.UseVisualStyleBackColor = true;
+            this.btnSelectCSVOutputDir.Click += new System.EventHandler(this.btnSelectCSVOutputDir_Click);
+            // 
+            // txtCSVOutputDir
+            // 
+            this.txtCSVOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCSVOutputDir.Enabled = false;
+            this.txtCSVOutputDir.Location = new System.Drawing.Point(113, 71);
+            this.txtCSVOutputDir.Name = "txtCSVOutputDir";
+            this.txtCSVOutputDir.Size = new System.Drawing.Size(327, 21);
+            this.txtCSVOutputDir.TabIndex = 16;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(19, 74);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(87, 13);
+            this.label14.TabIndex = 15;
+            this.label14.Text = "CSV Output Dir.:";
             // 
             // checkBoxTranslateOnlyNew
             // 
@@ -444,7 +494,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(642, 368);
+            this.tabPage1.Size = new System.Drawing.Size(672, 368);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Excel Import";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -623,20 +673,19 @@
             this.tabBrowser.Location = new System.Drawing.Point(4, 22);
             this.tabBrowser.Name = "tabBrowser";
             this.tabBrowser.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBrowser.Size = new System.Drawing.Size(642, 368);
+            this.tabBrowser.Size = new System.Drawing.Size(672, 368);
             this.tabBrowser.TabIndex = 4;
             this.tabBrowser.Text = "Google Translator";
             this.tabBrowser.UseVisualStyleBackColor = true;
             // 
             // webBrowser
             // 
-            this.webBrowser.AllowWebBrowserDrop = false;
             this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser.IsWebBrowserContextMenuEnabled = false;
             this.webBrowser.Location = new System.Drawing.Point(3, 3);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(636, 362);
+            this.webBrowser.Size = new System.Drawing.Size(666, 362);
             this.webBrowser.TabIndex = 0;
             this.webBrowser.Url = new System.Uri("https://translate.google.com/", System.UriKind.Absolute);
             this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
@@ -647,7 +696,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(642, 368);
+            this.tabPage3.Size = new System.Drawing.Size(672, 368);
             this.tabPage3.TabIndex = 5;
             this.tabPage3.Text = "Translate Service";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -656,6 +705,11 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.cmbDeeplApiType);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.txtDeepLTranslationKey);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.rbtnDeepLTranslateService);
             this.groupBox2.Controls.Add(this.txtMsTranslationRegion);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.txtMsTranslationKey);
@@ -664,10 +718,58 @@
             this.groupBox2.Controls.Add(this.rbtnMsTranslateService);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(630, 112);
+            this.groupBox2.Size = new System.Drawing.Size(630, 195);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Translate Service Selection";
+            // 
+            // cmbDeeplApiType
+            // 
+            this.cmbDeeplApiType.Enabled = false;
+            this.cmbDeeplApiType.Items.AddRange(new object[] {
+            "FreeAPI",
+            "ProAPI"});
+            this.cmbDeeplApiType.Location = new System.Drawing.Point(369, 126);
+            this.cmbDeeplApiType.Name = "cmbDeeplApiType";
+            this.cmbDeeplApiType.Size = new System.Drawing.Size(100, 21);
+            this.cmbDeeplApiType.TabIndex = 10;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(319, 129);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(55, 13);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "API Type:";
+            // 
+            // txtDeepLTranslationKey
+            // 
+            this.txtDeepLTranslationKey.Enabled = false;
+            this.txtDeepLTranslationKey.Location = new System.Drawing.Point(103, 126);
+            this.txtDeepLTranslationKey.Name = "txtDeepLTranslationKey";
+            this.txtDeepLTranslationKey.Size = new System.Drawing.Size(200, 21);
+            this.txtDeepLTranslationKey.TabIndex = 8;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 129);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(90, 13);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "Subscription Key:";
+            // 
+            // rbtnDeepLTranslateService
+            // 
+            this.rbtnDeepLTranslateService.AutoSize = true;
+            this.rbtnDeepLTranslateService.Location = new System.Drawing.Point(5, 98);
+            this.rbtnDeepLTranslateService.Name = "rbtnDeepLTranslateService";
+            this.rbtnDeepLTranslateService.Size = new System.Drawing.Size(154, 17);
+            this.rbtnDeepLTranslateService.TabIndex = 6;
+            this.rbtnDeepLTranslateService.Text = "DeepL Translations Service";
+            this.rbtnDeepLTranslateService.UseVisualStyleBackColor = true;
+            this.rbtnDeepLTranslateService.CheckedChanged += new System.EventHandler(this.rbtnDeepLTranslateService_CheckedChanged);
             // 
             // txtMsTranslationRegion
             // 
@@ -737,49 +839,6 @@
             this.lnkAbout.TabStop = true;
             this.lnkAbout.Text = "About";
             this.lnkAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAbout_LinkClicked);
-            // 
-            // btnSelectCSVOutputDir
-            // 
-            this.btnSelectCSVOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectCSVOutputDir.Enabled = false;
-            this.btnSelectCSVOutputDir.Location = new System.Drawing.Point(572, 69);
-            this.btnSelectCSVOutputDir.Name = "btnSelectCSVOutputDir";
-            this.btnSelectCSVOutputDir.Size = new System.Drawing.Size(75, 23);
-            this.btnSelectCSVOutputDir.TabIndex = 17;
-            this.btnSelectCSVOutputDir.Text = "Select";
-            this.btnSelectCSVOutputDir.UseVisualStyleBackColor = true;
-            this.btnSelectCSVOutputDir.Click += new System.EventHandler(this.btnSelectCSVOutputDir_Click);
-            // 
-            // txtCSVOutputDir
-            // 
-            this.txtCSVOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCSVOutputDir.Enabled = false;
-            this.txtCSVOutputDir.Location = new System.Drawing.Point(113, 71);
-            this.txtCSVOutputDir.Name = "txtCSVOutputDir";
-            this.txtCSVOutputDir.Size = new System.Drawing.Size(327, 21);
-            this.txtCSVOutputDir.TabIndex = 16;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(19, 74);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(87, 13);
-            this.label14.TabIndex = 15;
-            this.label14.Text = "CSV Output Dir.:";
-            // 
-            // chkCSVOutput
-            // 
-            this.chkCSVOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkCSVOutput.AutoSize = true;
-            this.chkCSVOutput.Location = new System.Drawing.Point(454, 75);
-            this.chkCSVOutput.Name = "chkCSVOutput";
-            this.chkCSVOutput.Size = new System.Drawing.Size(113, 17);
-            this.chkCSVOutput.TabIndex = 18;
-            this.chkCSVOutput.Text = "Export as CSV too";
-            this.chkCSVOutput.UseVisualStyleBackColor = true;
-            this.chkCSVOutput.CheckedChanged += new System.EventHandler(this.chkCSVOutput_CheckedChanged);
             // 
             // frmMain
             // 
@@ -884,6 +943,11 @@
         private System.Windows.Forms.Button btnSelectCSVOutputDir;
         private System.Windows.Forms.TextBox txtCSVOutputDir;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cmbDeeplApiType;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtDeepLTranslationKey;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.RadioButton rbtnDeepLTranslateService;
     }
 }
 

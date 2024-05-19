@@ -99,14 +99,17 @@ namespace AutoResxTranslator
 				{"cy", "Welsh"},
 				{"yi", "Yiddish"}
 			};
+        private bool settingsChanged;
 
-		ServiceTypeEnum ServiceType
+        ServiceTypeEnum ServiceType
 		{
 			get
 			{
 				if (rbtnGoogleTranslateService.Checked)
 					return ServiceTypeEnum.Google;
-				return ServiceTypeEnum.Microsoft;
+                if (rbtnDeepLTranslateService.Checked)
+                    return ServiceTypeEnum.DeepL;
+                return ServiceTypeEnum.Microsoft;
 			}
 		}
 
@@ -254,8 +257,10 @@ namespace AutoResxTranslator
 			{
 				ServiceType = ServiceType,
 				MsSubscriptionKey = txtMsTranslationKey.Text,
-				MsSubscriptionRegion = txtMsTranslationRegion.Text
-			};
+				MsSubscriptionRegion = txtMsTranslationRegion.Text,
+                DeepLSubscriptionKey = txtDeepLTranslationKey.Text,
+                DeepLSubscriptionRegion = cmbDeeplApiType.SelectedIndex.ToString()
+            };
 
 			IsBusy(true);
 			new Action<string, string, TranslationOptions, List<string>, string, ResxProgressCallback, bool, bool, bool, string>(TranslateResxFilesAsync).BeginInvoke(
@@ -427,7 +432,31 @@ namespace AutoResxTranslator
 								catch { }
 							}
 						}
-						if (generateCsv)
+                        else if (translationOptions.ServiceType == ServiceTypeEnum.DeepL)
+                        {
+                            var translationResult = await DeepLTranslateService.TranslateAsync(orgText, sourceLng, destLng,
+                                translationOptions.DeepLSubscriptionKey, translationOptions.DeepLSubscriptionRegion);
+
+                            if (translationResult.Success)
+                            {
+                                valueNode.InnerText = translationResult.Result;
+                            }
+                            else
+                            {
+                                hasErrors = true;
+                                var key = ResxTranslator.GetDataKeyName(node);
+                                try
+                                {
+                                    string message = "\r\nKey '" + key + "' translation to language '" + destLng + "' failed. ";
+                                    if (!string.IsNullOrEmpty(translationResult.Result))
+                                        message += " Error message: " + translationResult.Result;
+
+                                    File.AppendAllText(errorLogFile, message);
+                                }
+                                catch { }
+                            }
+                        }
+                        if (generateCsv)
 							csvOutputDataBuffer[index] = keyNode + "," + valueNode.InnerText;
 					}
 				}
@@ -545,7 +574,9 @@ namespace AutoResxTranslator
 			FillComboBoxes();
 			txtMsTranslationKey.Text = Properties.Settings.Default.MicrosoftTranslatorKey;
 			txtMsTranslationRegion.Text = Properties.Settings.Default.MicrosoftTranslatorRegion;
-			tabMain.TabPages.Remove(tabBrowser);
+            txtDeepLTranslationKey.Text = Properties.Settings.Default.DeepLTranslatorKey;
+            cmbDeeplApiType.SelectedIndex = Properties.Settings.Default.DeepLTranslatorType;
+            tabMain.TabPages.Remove(tabBrowser);
 		}
 
 		private async void btnTranslate_ClickAsync(object sender, EventArgs e)
@@ -570,8 +601,10 @@ namespace AutoResxTranslator
 			{
 				ServiceType = ServiceType,
 				MsSubscriptionKey = txtMsTranslationKey.Text,
-				MsSubscriptionRegion = txtMsTranslationRegion.Text
-			};
+				MsSubscriptionRegion = txtMsTranslationRegion.Text,
+                DeepLSubscriptionKey = txtDeepLTranslationKey.Text,
+                DeepLSubscriptionRegion = cmbDeeplApiType.SelectedIndex.ToString()
+            };
 
 
 			IsBusy(true);
@@ -589,8 +622,8 @@ namespace AutoResxTranslator
 					IsBusy(false);
 				});
 			}
-			else
-			{
+			else if (ServiceType == ServiceTypeEnum.Microsoft)
+            {
 				var translationResult = await MsTranslateService.TranslateAsync(text, lngSrc, lngDest, txtMsTranslationKey.Text, txtMsTranslationRegion.Text);
 
 				if (translationResult.Success)
@@ -607,7 +640,25 @@ namespace AutoResxTranslator
 
 				IsBusy(false);
 			}
-		}
+            else
+            {
+                var translationResult = await DeepLTranslateService.TranslateAsync(text, lngSrc, lngDest, txtDeepLTranslationKey.Text, cmbDeeplApiType.SelectedIndex.ToString());
+
+                if (translationResult.Success)
+                {
+                    SetResult(translationResult.Result);
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(translationResult.Result))
+                        SetResult(translationResult.Result);
+                    else
+                        SetResult("Translation Failed!");
+                }
+
+                IsBusy(false);
+            }
+        }
 
 		private void btnSelectResxSource_Click(object sender, EventArgs e)
 		{
@@ -803,9 +854,14 @@ namespace AutoResxTranslator
 		{
 			txtMsTranslationKey.Enabled = rbtnMsTranslateService.Checked;
 			txtMsTranslationRegion.Enabled = rbtnMsTranslateService.Checked;
-		}
+        }
+        private void rbtnDeepLTranslateService_CheckedChanged(object sender, EventArgs e)
+        {
+            txtDeepLTranslationKey.Enabled = rbtnDeepLTranslateService.Checked;
+            cmbDeeplApiType.Enabled = rbtnDeepLTranslateService.Checked;
+        }
 
-		private void chkCSVOutput_CheckedChanged(object sender, EventArgs e)
+        private void chkCSVOutput_CheckedChanged(object sender, EventArgs e)
 		{
 			txtCSVOutputDir.Enabled = btnSelectCSVOutputDir.Enabled = chkCSVOutput.Checked;
 		}
@@ -826,5 +882,26 @@ namespace AutoResxTranslator
 				txtCSVOutputDir.Text = dlg.SelectedPath;
 			}
 		}
-	}
+
+        private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabMain_Selected(object sender, TabControlEventArgs e)
+        {
+            var s = (TabControl)sender;
+            if (settingsChanged)
+            {
+                Properties.Settings.Default.MicrosoftTranslatorKey = txtMsTranslationKey.Text;
+                Properties.Settings.Default.MicrosoftTranslatorRegion = txtMsTranslationRegion.Text;
+                Properties.Settings.Default.DeepLTranslatorKey = txtDeepLTranslationKey.Text;
+                Properties.Settings.Default.DeepLTranslatorType = (short)cmbDeeplApiType.SelectedIndex;
+                Properties.Settings.Default.Save();
+                settingsChanged = false;
+            }
+            settingsChanged = s.SelectedTab.Name == "tabPage3";
+
+        }
+    }
 }
