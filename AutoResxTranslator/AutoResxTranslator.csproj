@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeepLTranslateService.cs" />
     <Compile Include="Definitions\ResultHolder.cs" />
     <Compile Include="Definitions\TranslationOptions.cs" />
     <Compile Include="frmAbout.cs">

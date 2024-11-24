@@ -3,6 +3,7 @@
     public enum ServiceTypeEnum
     {
         Microsoft,
-        Google
+        Google,
+        DeepL
     }
 }

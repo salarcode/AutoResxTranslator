@@ -8,5 +8,11 @@
     <Setting Name="MicrosoftTranslatorRegion" Type="System.String" Scope="User">
       <Value Profile="(Default)">global</Value>
     </Setting>
+    <Setting Name="DeepLTranslatorKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">YOUR_KEY_HERE</Value>
+    </Setting>
+    <Setting Name="DeepLTranslatorType" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
