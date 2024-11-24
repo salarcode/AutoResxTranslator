@@ -14,8 +14,8 @@ namespace AutoResxTranslator.Definitions
 
 		public string MsSubscriptionRegion { get; set; }
 
-        public string DeepLSubscriptionKey { get; set; }
+		public string DeepLSubscriptionKey { get; set; }
 
-        public string DeepLSubscriptionRegion { get; set; }
-    }
+		public string DeepLSubscriptionRegion { get; set; }
+	}
 }

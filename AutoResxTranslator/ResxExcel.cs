@@ -16,8 +16,8 @@ namespace AutoResxTranslator
 		{
 			public string[] SheetNames { get; set; }
 			public string[] SheetColumnsKey { get; set; }
-            public string[] SheetColumnsTranslation { get; set; }
-        }
+			public string[] SheetColumnsTranslation { get; set; }
+		}
 
 		public static ExcelFileInfo ReadExcel(string excelFile)
 		{
@@ -70,8 +70,8 @@ namespace AutoResxTranslator
 							}
 						}
 						result.SheetColumnsKey = columns.ToArray();
-                        result.SheetColumnsTranslation = columns.ToArray();
-                    }
+						result.SheetColumnsTranslation = columns.ToArray();
+					}
 				}
 
 				return result;
@@ -127,7 +127,7 @@ namespace AutoResxTranslator
 				}
 				return excelSheets;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return null;
 			}
